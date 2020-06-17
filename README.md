@@ -70,5 +70,10 @@ $data = [
 ];
 
 $myResponse = $myClient->generateConnectURL($data, $state);
-
+if($myResponse['error']['code'] < 0) {
+    // ERROR
+} else {
+    // Redirection to the connect url (The buyer will see his bank login page to perform the bak transfer
+    header('Location: ' . $myResponse['data']['connect_url']);
+}
 ```
