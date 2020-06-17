@@ -22,9 +22,9 @@ The simplest usage of the library would be as follow:
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-$myPrivateKey = 'app_privateKey.pem';
-$app_id = '<my_app_id>';
-$app_secret = '<my_app_secret>';
+$myPrivateKey = 'app_privateKey.pem'; // Private Key path downloaded from the Fintecture Console (https://console.fintecture.com/)
+$app_id = '<my_app_id>'; // App ID available in the Fintecture Console (https://console.fintecture.com/)
+$app_secret = '<my_app_secret>'; // App Secret available in the Fintecture Console (https://console.fintecture.com/)
 $state = '<my-uniq-id-for-the-payment>'; // It's my ID, I have to generate it myself, it will be sent back in the callback
 
 $myClient = new Fintecture\Client([

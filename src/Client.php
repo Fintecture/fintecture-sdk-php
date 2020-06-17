@@ -30,7 +30,7 @@ class Client {
      *              'FINTECTURE_CONNECT_URL' => Begining of the connect URL for the redirection,
      *              'FINTECTURE_APP_ID' => App ID available in the Fintecture Console (https://console.fintecture.com/),
      *              'FINTECTURE_APP_SECRET' => App Secret available in the Fintecture Console (https://console.fintecture.com/),
-     *              'FINTECTURE_PRIVATE_KEY' => Private Key path downloader from the Fintecture Console (https://console.fintecture.com/),
+     *              'FINTECTURE_PRIVATE_KEY' => Private Key path downloaded from the Fintecture Console (https://console.fintecture.com/),
      *          ]
      */
     public function __construct($params) {
