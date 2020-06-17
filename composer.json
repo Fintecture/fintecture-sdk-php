@@ -1,0 +1,25 @@
+{
+  "name": "fintecture/fintecture-php",
+  "type": "library",
+  "description": "PHP library for the Fintecture API.",
+  "keywords": ["payment","bank"],
+  "homepage": "https://github.com/Fintecture/fintecture-sdk-php",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Grégoire Fournel",
+      "email": "g@factomos.com",
+      "homepage": "https://www.fintecture.com/",
+      "role": "Partner"
+    }
+  ],
+  "require": {
+    "php": ">=5.4.0",
+    "guzzlehttp/guzzle": "^6.4"
+  },
+  "autoload": {
+    "psr-0": {
+      "Fintecture": "src"
+    }
+  }
+}
