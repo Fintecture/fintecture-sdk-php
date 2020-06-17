@@ -15,7 +15,7 @@ $ composer require factomos/factomos-php
 Usage
 =====
 
-The simplest usage of the library would be as follows:
+The simplest usage of the library would be as follow:
 
 ```php
 <?php
