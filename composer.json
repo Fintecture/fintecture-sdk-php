@@ -1,5 +1,5 @@
 {
-  "name": "fintecture/fintecture-php",
+  "name": "fintecture/fintecture-sdk-php",
   "type": "library",
   "description": "PHP library for the Fintecture API.",
   "keywords": ["payment","bank"],
