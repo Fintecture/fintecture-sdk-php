@@ -9,7 +9,7 @@ Installation
 Official installation method is via composer and its packagist package [fintecture/fintecture-sdk-php](https://packagist.org/packages/fintecture/fintecture-sdk-php).
 
 ```
-$ composer require factomos/factomos-php
+$ composer require fintecture/fintecture-sdk-php
 ```
 
 Usage
