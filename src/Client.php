@@ -2,7 +2,7 @@
 
 /**
  * Class Fintecture Client
- * v 1.0.1 - 2020-06-18
+ * v 1.0.0 - 2020-06-18
  *
  * User: gfournel@factomos.com
  * Date: 2020-06-17
