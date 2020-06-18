@@ -18,7 +18,7 @@
     "guzzlehttp/guzzle": "^6.4"
   },
   "autoload": {
-    "psr-0": {
+    "psr-4": {
       "Fintecture": "src"
     }
   }
