@@ -200,11 +200,7 @@ class Client {
             'Content-Type' => 'application/json',
         ];
 
-        try {
-            $response = $this->postJson($url, $data);
-        } catch(Exception $exception) {
-            $responseBody = $exception->getResponse()->getBody(true);
-        }
+        $response = $this->postJson($url, $data);
 
         $responseObject = json_decode((string)$response->getBody(), true);
 
