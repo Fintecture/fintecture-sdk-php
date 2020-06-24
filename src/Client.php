@@ -2,10 +2,10 @@
 
 /**
  * Class Fintecture Client
- * v 1.0.0 - 2020-06-18
+ * v 1.0.0 - 2020-06-24
  *
  * User: gfournel@factomos.com
- * Date: 2020-06-17
+ * Date: 2020-06-24
  */
 
 namespace Fintecture;
@@ -176,7 +176,7 @@ class Client {
 
         $url = $this->fintecture_pis_url . '/pis/v1/prepare';
 
-        $digest = 'SHA-256=' . base64_encode(hash('sha256',json_encode($data), true));
+        $digest = 'SHA-256=' . base64_encode(hash('sha256',json_encode($data,JSON_UNESCAPED_UNICODE), true));
 
         $x_date = date('r');
         $x_request_id = $this->gen_uuid();
@@ -215,14 +215,13 @@ class Client {
                         'amount' => $data['data']['attributes']['amount'],
                         'currency' => 'EUR',
                         'beneficiary' => [
-                            'name' => $data['data']['attributes']['beneficiary']['name'],
+                            'name' => htmlentities($data['data']['attributes']['beneficiary']['name']),
                         ],
                     ],
                 ],
             ];
 
-            $utf8Payload =  html_entity_decode(json_encode(array_map('htmlentities',$payload)));
-            $digest = 'SHA-256=' . base64_encode(hash('sha256',$utf8Payload, true));
+            $digest = 'SHA-256=' . base64_encode(hash('sha256',json_encode($payload,JSON_UNESCAPED_UNICODE), true));
 
             $x_date = date('r');
             $x_request_id = $this->gen_uuid();
