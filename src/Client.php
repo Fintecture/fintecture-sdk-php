@@ -2,10 +2,10 @@
 
 /**
  * Class Fintecture Client
- * v 1.0.0 - 2020-06-24
+ * v 1.0.1 - 2020-06-25
  *
  * User: gfournel@factomos.com
- * Date: 2020-06-24
+ * Date: 2020-06-25
  */
 
 namespace Fintecture;
@@ -71,6 +71,18 @@ class Client {
             // 48 bits for "node"
             mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff )
         );
+    }
+
+    /**
+     * Do a Get http query
+     *
+     * @param $url
+     * @return mixed|\Psr\Http\Message\ResponseInterface
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function get($url) {
+        $response = $this->client->request('GET', $url, ['headers' => $this->headers]);
+        return $response;
     }
 
     /**
@@ -257,6 +269,48 @@ class Client {
         }
 
         return $output;
+
+    }
+
+
+    /**
+     * Get a payment info by its session_id (needed in the callback to verify the payment status)
+     *
+     * @param $session_id
+     * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function getPayment($session_id) {
+
+        $access_token = $this->getAccessToken();
+
+        $url = $this->fintecture_pis_url . '/pis/v1/payments/' . $session_id;
+
+        $x_date = date('r');
+        $x_request_id = $this->gen_uuid();
+
+        $signing_string = '';
+        $signing_string .= 'x-date: ' . $x_date . "\n";
+        $signing_string .= 'x-request-id: ' . $x_request_id;
+
+        openssl_sign($signing_string, $crypted_string, $this->fintecture_private_key,OPENSSL_ALGO_SHA256);
+
+        $signature = 'keyId="' . $this->fintecture_app_id . '",algorithm="rsa-sha256",headers="x-date x-request-id",signature="' . base64_encode($crypted_string) . '"';
+
+        $this->headers = [
+            'Authorization' => 'Bearer ' . $access_token,
+            'Signature' => $signature,
+            'X-Date' => $x_date,
+            'X-Request-Id' => $x_request_id,
+            'Accept' => 'application/json',
+            'Content-Type' => 'application/json',
+        ];
+
+        $response = $this->get($url);
+
+        $responseObject = json_decode((string)$response->getBody(), true);
+
+        return $responseObject;
 
     }
 
