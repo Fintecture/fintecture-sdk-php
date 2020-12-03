@@ -77,3 +77,16 @@ if($myResponse['error']['code'] < 0) {
     header('Location: ' . $myResponse['data']['connect_url']);
 }
 ```
+
+In the context of integrating Fintecture directly, you need to follow these steps: 
+
+1- Get all providers
+[Example to use the function getProviders()](https://github.com/Fintecture/fintecture-sdk-php/tree/master/example/example-get-providers.php)
+
+2- Initiate payment
+[Example to use the function postInitiate()](https://github.com/Fintecture/fintecture-sdk-php/tree/master/example/example-post-initiate.php)
+
+Optional :
+You can verify the status of the payment to see if the payment is done.
+You have 2 method, if you have given an url to receive webhook, you need to wait a webhook but with the SDK you can validate the webhook. ([Example to use the function validateWebhook](https://github.com/Fintecture/fintecture-sdk-php/tree/master/example/example-validate-webhook.php)
+The other method is to get the details of a payment.([Example to use the function getPayment()](https://github.com/Fintecture/fintecture-sdk-php/tree/master/example/example-get-payment.php)
