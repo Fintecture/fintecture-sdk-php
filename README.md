@@ -47,6 +47,8 @@ $data = [
             'city' => 'Gotham',
             'country' => 'FR',
         ],
+        'psu_phone' => '0601020304',
+        'psu_phone_prefix' => '0033'
     ],
     'data' => [
         'type' => 'SEPA',
@@ -61,9 +63,8 @@ $data = [
                 'city' => 'Atlantis',
                 'zip' => '12345',
                 'country' => 'FR',
-                'iban' => '798787987988982789',
-                'swift_bic' => 'BIC456',
-                'bank_name' => 'WEALTHY BANK',
+                'iban' => 'FR7630001007941234567890185',
+                'swift_bic' => 'BDFEFRPPCCT'
             ],
         ],
     ],
