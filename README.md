@@ -53,7 +53,7 @@ $data = [
     'data' => [
         'type' => 'PIS',
         'attributes' => [
-            'amount' => 550.60,
+            'amount' => '550.60',
             'currency' => 'EUR',
             'communication' => 'Commande N°15654'
         ],
