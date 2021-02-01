@@ -1,7 +1,7 @@
 Fintecture is a Fintech that has a payment solution via bank transfer available at [https://www.fintecture.com/].
 This library is a PHP Client for the Fintecture API. With it you can initiate a payment via the solution PayByBank of Fintecture
 
-Send an email to anjan@fintecture.com to get the full API documentation
+Send an email to developer@fintecture.com to get the full API documentation
 
 Installation
 ============
@@ -51,21 +51,11 @@ $data = [
         'psu_phone_prefix' => '0033'
     ],
     'data' => [
-        'type' => 'SEPA',
+        'type' => 'PIS',
         'attributes' => [
-            'amount' => 550.60,
+            'amount' => '550.60',
             'currency' => 'EUR',
-            'communication' => 'Commande N°15654',
-            'beneficiary' => [
-                'name' => 'World Company',
-                'street' => 'power street',
-                'number' => '3',
-                'city' => 'Atlantis',
-                'zip' => '12345',
-                'country' => 'FR',
-                'iban' => 'FR7630001007941234567890185',
-                'swift_bic' => 'BDFEFRPPCCT'
-            ],
+            'communication' => 'Commande N°15654'
         ],
     ],
 ];
