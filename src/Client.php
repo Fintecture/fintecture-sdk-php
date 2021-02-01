@@ -480,5 +480,102 @@ class Client {
         return false;
     }
 
+    /**
+     * Generate the Connect V2 URL in order to redirect the buyer to the fintecture payment page
+     *
+     * @param $body = [
+     *              'meta' => [
+     *                  'psu_name' => Buyer Name,
+     *                  'psu_email' => Buyer Email,
+     *                  'psu_address' => [
+     *                      'street' => Buyer Street,
+     *                      'zip' => Buyer Zipcode,
+     *                      'city' => Buyer City,
+     *                      'country' => Buyer Country Iso Code (ex: FR),
+     *                  ],
+     *              ],
+     *              'data' => [
+     *                  'type' => 'SEPA',
+     *                  'attributes' => [
+     *                      'amount' => Amount to pay,
+     *                      'currency' => 'EUR',
+     *                      'communication' => Text to display for the payment,
+     *                      'beneficiary' => [
+     *                          'name' => Name of the beneficiary,
+     *                          'street' => Street of the beneficiary ,
+     *                          'number' => '',
+     *                          'city' =>  City of the beneficiary,
+     *                          'zip' => Zipcode of the beneficiary,
+     *                          'country' => Country Iso code of the beneficiary,
+     *                          'iban' => Iban of the beneficiary,
+     *                          'swift_bic' => Bic of the beneficiary,
+     *                          'bank_name' => Name of the bank of the beneficiary,
+     *                      ],
+     *                  ],
+     *              ],
+     *          ]
+     * @param string $state - an ID that will be sent to the callback
+     * @param string $redirectUri - The redirect uri where to redirect the user after the authentication
+     * @return array[]
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function postConnectV2(array $body, string $state =null, string $redirectUri = null) {
 
+        $params = [
+            'redirect_uri' => $redirectUri,
+            'state' => $state
+        ];
+        $params = http_build_query($params);
+        $url = $this->fintecture_pis_url . '/pis/v2/connect?'. $params;
+        
+        $response = $this->postJson($url, $body);
+        
+        return json_decode((string)$response->getBody(), true);
+    }
+
+    /**
+     * 
+     * @param $body = [
+     *             'meta' => [
+     *                 // Info of the buyer
+     *                 'psu_name' => Buyer Name,
+     *                 'psu_email' => Buyer Email,
+     *                 'psu_phone' => '601020304',
+     *                 'psu_phone_prefix' => '+33',
+     *                 'psu_address' => [
+     *                     'street_number' => 'Buyer number',
+     *                     'street' => Buyer Street,
+     *                     'zip' => Buyer Zipcode,
+     *                     'city' => Buyer City,
+     *                     'country' => Buyer Country Iso Code (ex: FR),
+     *                 ],
+     *                 'cc' => 'john@doe.com',
+     *                 'bcc' => 'john@doe.com',
+     *                 'expirary' => 86400
+     *             ],
+     *             'data' => [
+     *                 'type' => 'REQUEST_TO_PAY',
+     *                 'attributes' => [
+     *                     'amount' => Amount to pay,
+     *                      'currency' => 'EUR',
+     *                      'communication' => Text to display for the payment,            
+     *                 ],
+     *            ],
+     *          ];
+     * @param string $redirectUri - The redirect uri where to redirect the user after the authentication
+     * @return array[]
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    public function postRequestToPay($body, $redirectUri = null){
+        $params = [
+            'redirect_uri' => $redirectUri
+        ];
+        $params = http_build_query($params);
+        $url = $this->fintecture_pis_url . '/pis/v2/request-to-pay?'. $params;
+        
+        
+        $response = $this->postJson($url, $body);
+        
+        return json_decode((string)$response->getBody(), true);
+    }
 }
