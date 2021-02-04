@@ -2,7 +2,7 @@
 
 /**
  * Class Fintecture Client
- * v 1.1- 2020-12-03
+ * v 1.2.1- 2021-02-04
  *
  * User: gfournel@factomos.com
  * Date: 2020-06-25
@@ -259,7 +259,7 @@ class Client {
                         'amount' => $body['data']['attributes']['amount'],
                         'currency' => 'EUR',
                         'beneficiary' => [
-                            'name' => htmlentities($body['data']['attributes']['beneficiary']['name']),
+                            'name' => $body['data']['attributes']['beneficiary']['name'],
                         ],
                     ],
                 ],
