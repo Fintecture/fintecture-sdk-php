@@ -1,42 +1,48 @@
-Fintecture is a Fintech that has a payment solution via bank transfer available at [https://www.fintecture.com/].
-This library is a PHP Client for the Fintecture API. With it you can initiate a payment via the solution PayByBank of Fintecture
+# PHP library for the Fintecture API.
 
-Send an email to developer@fintecture.com to get the full API documentation
+[![Latest Stable Version](http://poser.pugx.org/fintecture/fintecture-sdk-php/v)](https://packagist.org/packages/fintecture/fintecture-sdk-php) [![Total Downloads](http://poser.pugx.org/fintecture/fintecture-sdk-php/downloads)](https://packagist.org/packages/fintecture/fintecture-sdk-php) [![Monthly Downloads](http://poser.pugx.org/fintecture/fintecture-sdk-php/d/monthly)](https://packagist.org/packages/fintecture/fintecture-sdk-php) [![Latest Unstable Version](http://poser.pugx.org/fintecture/fintecture-sdk-php/v/unstable)](https://packagist.org/packages/fintecture/fintecture-sdk-php) [![License](http://poser.pugx.org/fintecture/fintecture-sdk-php/license)](https://packagist.org/packages/fintecture/fintecture-sdk-php)
 
-Installation
-============
+Fintecture is a Fintech that has a payment solution via bank transfer available at [fintecture.com](https://www.fintecture.com/).
 
-Official installation method is via composer and its packagist package [fintecture/fintecture-sdk-php](https://packagist.org/packages/fintecture/fintecture-sdk-php).
+This library is a PHP Client for the Fintecture API.
 
+## Requirements
+
+* PHP >= 7.1
+
+## Quick install
+
+Via [Composer](https://getcomposer.org), with our packagist package [fintecture/fintecture-sdk-php](https://packagist.org/packages/fintecture/fintecture-sdk-php).
+
+This command will get you up and running quickly with a Guzzle HTTP client.
+
+```bash
+composer require fintecture/fintecture-sdk-php guzzlehttp/guzzle http-interop/http-factory-guzzle
 ```
-$ composer require fintecture/fintecture-sdk-php
-```
 
-Usage
-=====
+## Getting started
 
-The simplest usage of the library would be as follow:
+Simple usage looks like:
 
 ```php
-<?php
+require_once('vendor/autoload.php');
 
-require_once __DIR__ . '/vendor/autoload.php';
-
-$myPrivateKey = 'app_privateKey.pem'; // Private Key path downloaded from the Fintecture Console (https://console.fintecture.com/)
-$app_id = '<my_app_id>'; // App ID available in the Fintecture Console (https://console.fintecture.com/)
-$app_secret = '<my_app_secret>'; // App Secret available in the Fintecture Console (https://console.fintecture.com/)
-$state = '<my-uniq-id-for-the-payment>'; // It's my ID, I have to generate it myself, it will be sent back in the callback
-
-$myClient = new Fintecture\Client([
-    'FINTECTURE_OAUTH_URL' => 'https://oauth-sandbox.fintecture.com',
-    'FINTECTURE_PIS_URL' => 'https://api-sandbox.fintecture.com',
-    'FINTECTURE_CONNECT_URL' => 'https://connect-sandbox.fintecture.com',
-    'FINTECTURE_PRIVATE_KEY' => preg_replace("/\n\r/m", '\n', file_get_contents($myPrivateKey)),
-    'FINTECTURE_APP_ID' => $app_id,
-    'FINTECTURE_APP_SECRET' => $app_secret,
+$state = '<my-uniq-id-for-the-payment>'; // It's my transaction ID, I have to generate it myself, it will be sent back in the callback
+$pisClient = new \Fintecture\PisClient([
+    'appId' => 'app_id',
+    'appSecret' => 'app_secret',
+    'privateKey' => 'private_key', // could be a file path or the private key itself
+    'environment' => 'sandbox' // or 'production'
 ]);
 
-$data = [
+$pisToken = $pisClient->token->generate();
+if (!$pisToken->error) {
+    $pisClient->setAccessToken($pisToken); // set token of PIS client
+} else {
+    echo $pisToken->errorMsg;
+}
+
+$payload = [
     'meta' => [
         // Info of the buyer
         'psu_name' => 'M. John Doe',
@@ -45,41 +51,95 @@ $data = [
             'street' => '5 Void Street',
             'zip' => '12345',
             'city' => 'Gotham',
-            'country' => 'FR',
-        ],
-        'psu_phone' => '0601020304',
-        'psu_phone_prefix' => '0033'
+            'country' => 'FR'
+        ]
     ],
     'data' => [
-        'type' => 'PIS',
+        'type' => 'SEPA',
         'attributes' => [
             'amount' => '550.60',
             'currency' => 'EUR',
             'communication' => 'Commande N°15654'
-        ],
-    ],
+        ]
+    ]
 ];
 
-$myResponse = $myClient->generateConnectURL($data, $state);
-if($myResponse['error']['code'] < 0) {
-    // ERROR
+$connect = $pisClient->connect->generate($payload, $state);
+if (!$connect->error) {
+    $pisClient->redirect($connect->meta->url);
 } else {
-    // Redirection to the connect url (The buyer will see his bank login page to perform the bak transfer
-    header('Location: ' . $myResponse['data']['connect_url']);
+    echo $connect->errorMsg;
 }
 ```
 
-In the context of integrating Fintecture directly, you need to follow these steps: 
+## Advanced usage
 
-1- Get all providers
-[Example to use the function getProviders()](https://github.com/Fintecture/fintecture-sdk-php/tree/master/example/example-get-providers.php)
+We are decoupled from any HTTP messaging client with help by [HTTPlug](https://httplug.io).
+A list of community provided clients is found here: https://packagist.org/providers/php-http/client-implementation
 
-2- Initiate payment
-[Example to use the function postInitiate()](https://github.com/Fintecture/fintecture-sdk-php/tree/master/example/example-post-initiate.php)
+### Using a different http client
 
-Optional :
-You can verify the status of the payment to see if the payment is done.
+```bash
+composer require fintecture/fintecture-sdk-php symfony/http-client nyholm/psr7
+```
 
-You have 2 method, if you have given an url to receive webhook, you need to wait a webhook but with the SDK you can validate the webhook. ([Example to use the function validateWebhook](https://github.com/Fintecture/fintecture-sdk-php/tree/master/example/example-validate-webhook.php)
+To set up the Fintecture client with this HTTP client
 
-The other method is to get the details of a payment.([Example to use the function getPayment()](https://github.com/Fintecture/fintecture-sdk-php/tree/master/example/example-get-payment.php)
+```php
+use Fintecture\PisClient;
+use Symfony\Component\HttpClient\HttplugClient;
+
+$pisClient = new PisClient([$config], new HttplugClient());
+```
+
+## Available methods
+
+### Auth
+- Token
+    - generate
+    - refresh
+
+### AIS
+- Account
+    - get
+- AccountHolder
+    - get
+- Authorize
+    - generate
+    - generateDecoupled
+- Connect
+    - generate
+- Customer
+    - delete
+- Transaction
+    - get
+
+### PIS
+- Connect
+    - generate
+- Initiate
+    - generate
+- Payment
+    - get
+- Refund
+    - generate
+- RequestToPay
+    - generate
+- Settlement
+    - get
+
+### Resources
+- Application
+    - get
+- Provider
+    - get
+- TestAccount
+    - get
+
+## Troubleshooting
+
+Encountering an issue? Please contact us at developer@fintecture.com.
+
+## License
+
+Fintecture PHP API Client is an open-sourced software licensed under the [MIT license](LICENSE).

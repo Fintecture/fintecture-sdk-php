@@ -1,25 +1,47 @@
 {
-  "name": "fintecture/fintecture-sdk-php",
-  "type": "library",
-  "description": "PHP library for the Fintecture API.",
-  "keywords": ["payment","bank"],
-  "homepage": "https://github.com/Fintecture/fintecture-sdk-php",
-  "license": "MIT",
-  "authors": [
-    {
-      "name": "Grégoire Fournel",
-      "email": "g@factomos.com",
-      "homepage": "https://www.fintecture.com/",
-      "role": "Partner"
+    "name": "fintecture/fintecture-sdk-php",
+    "type": "library",
+    "description": "PHP library for the Fintecture API.",
+    "keywords": [
+        "fintecture",
+        "payment",
+        "bank"
+    ],
+    "homepage": "https://github.com/Fintecture/fintecture-sdk-php",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Fintecture Team",
+            "email": "developer@fintecture.com",
+            "homepage": "https://www.fintecture.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.1",
+        "ext-curl": "*",
+        "ext-json": "*",
+        "ext-mbstring": "*",
+        "ext-openssl": "*",
+        "php-http/curl-client": "*",
+        "http-interop/http-factory-guzzle": "*",
+        "php-http/discovery": "*"
+    },
+    "require-dev": {
+        "ext-dom": "*",
+        "ext-zip": "*",
+        "phpunit/phpunit": "^7",
+        "phpstan/phpstan": "^0.12.91",
+        "php-http/mock-client": "^1.4",
+        "mikey179/vfsstream": "^1.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "Fintecture\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Fintecture\\Tests\\": "tests/"
+        }
     }
-  ],
-  "require": {
-    "php": ">=7.0",
-    "guzzlehttp/guzzle": "^6.4"
-  },
-  "autoload": {
-    "psr-4": {
-      "Fintecture\\": "src"
-    }
-  }
 }
