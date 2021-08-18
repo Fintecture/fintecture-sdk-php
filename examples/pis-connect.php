@@ -44,7 +44,7 @@ $payload = [
 ];
 $state = uniqid(); // my unique identifier for the transaction
 
-// Step 3: Generate a connect instance with redirection on success
+// Step 3: generate a connect instance with redirection on success
 $pisConnect = $pisClient->connect->generate($payload, $state);
 if (!$pisConnect->error) {
     $pisClient->redirect($pisConnect->meta->url);

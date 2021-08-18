@@ -48,7 +48,7 @@ $payload = [
 
 $redirectUri = 'https://domain.com';
 
-// Step 3: Generate a requestToPay call
+// Step 3: generate a requestToPay call
 $pisRequestToPay = $pisClient->requestToPay->generate($payload, $redirectUri);
 if (!$pisRequestToPay->error) {
     var_dump($pisRequestToPay);
