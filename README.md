@@ -94,46 +94,48 @@ $pisClient = new PisClient([$config], new HttplugClient());
 
 ## Available methods
 
+These methods follow our [API structure](https://docs.fintecture.com/v2).
+
 ### Auth
-- Token
+- token
     - generate
     - refresh
 
 ### AIS
-- Account
+- account
     - get
-- AccountHolder
+- accountHolder
     - get
-- Authorize
+- authorize
     - generate
     - generateDecoupled
-- Connect
+- connect
     - generate
-- Customer
+- customer
     - delete
-- Transaction
+- transaction
     - get
 
 ### PIS
-- Connect
+- connect
     - generate
-- Initiate
+- initiate
     - generate
-- Payment
+- payment
     - get
-- Refund
+- refund
     - generate
-- RequestToPay
+- requestToPay
     - generate
-- Settlement
+- settlement
     - get
 
 ### Resources
-- Application
+- application
     - get
-- Provider
+- provider
     - get
-- TestAccount
+- testAccount
     - get
 
 ## Troubleshooting
