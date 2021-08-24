@@ -57,9 +57,6 @@ abstract class Client
         Fintecture::setHttpClient($httpClient);
         Fintecture::setMessageFactory();
         Fintecture::setApiWrapper();
-
-        // Telemetry sending
-        Telemetry::logAction('sdk-instance');
     }
 
     /**
