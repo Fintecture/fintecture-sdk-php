@@ -64,14 +64,11 @@ class Authorize extends Api
             $path .= '?' . $params;
         }
 
-        $headers = Header::generate('GET', $path, null, $useToken);
+        $authMethod = $useToken ? 1 : 0;
+        $headers = Header::generate('GET', $path, null, $authMethod);
         $headers['x-psu-id'] = $xPsuId;
         $headers['x-psu-ip-address'] = $xPsuIpAddress;
 
-        if (!$useToken) {
-            return $this->apiWrapper->get($path, $headers, 0);
-        } else {
-            return $this->apiWrapper->get($path, $headers, 1);
-        }
+        return $this->apiWrapper->get($path, $headers, $authMethod);
     }
 }

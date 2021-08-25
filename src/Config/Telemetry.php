@@ -33,7 +33,7 @@ class Telemetry
         $body = self::getMetrics($action, $additionalMetrics);
 
         $apiWrapper = Fintecture::getApiWrapper();
-        $apiWrapper->post('ext/v1/activity/', $body, true, $headers);
+        $apiWrapper->post('https://api.fintecture.com/ext/v1/activity/', $body, true, $headers);
         return true;
     }
 
