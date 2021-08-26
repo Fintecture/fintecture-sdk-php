@@ -94,6 +94,7 @@ abstract class Client
      */
     public function getEncryptedPrivateKey(): ?string
     {
+        Fintecture::setCurrentClient($this->identifier);
         return Fintecture::getConfig()->getEncryptedPrivateKey();
     }
 
@@ -104,6 +105,7 @@ abstract class Client
      */
     public function getFinalPrivateKey(): ?string
     {
+        Fintecture::setCurrentClient($this->identifier);
         return Fintecture::getConfig()->getFinalPrivateKey();
     }
 
@@ -114,6 +116,7 @@ abstract class Client
      */
     public function setAccessToken(ApiResponse $accessToken)
     {
+        Fintecture::setCurrentClient($this->identifier);
         Fintecture::setAccessToken($accessToken);
     }
 
