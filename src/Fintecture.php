@@ -14,7 +14,7 @@ use Http\Discovery\MessageFactoryDiscovery;
 final class Fintecture
 {
     // SDK Version
-    public const VERSION = '2.0.3';
+    public const VERSION = '2.0.4';
 
     // API URLs
 
@@ -77,16 +77,36 @@ final class Fintecture
     }
 
     /**
+     * Get default HTTP client.
+     *
+     * @return HttpClient Default HTTP client
+     */
+    public static function getDefaultHttpClient(): ?HttpClient
+    {
+        return HttpClientDiscovery::find();
+    }
+
+    /**
+     * Get default Message Factory.
+     *
+     * @return MessageFactory Default Message Factory
+     */
+    public static function getDefaultMessageFactory(): ?MessageFactory
+    {
+        return MessageFactoryDiscovery::find();
+    }
+
+    /**
      * Get current HTTP client.
      *
      * @return HttpClient Current HTTP client
      */
     public static function getHttpClient(): ?HttpClient
     {
-        if (isset(self::$httpClients[self::getCurrentClient()])) {
+        if (!empty(self::getCurrentClient()) && isset(self::$httpClients[self::getCurrentClient()])) {
             return self::$httpClients[self::getCurrentClient()];
         }
-        return null;
+        return self::getDefaultHttpClient();
     }
 
     /**
@@ -99,7 +119,7 @@ final class Fintecture
         if (!self::$httpClients) {
             self::$httpClients = array();
         }
-        self::$httpClients[self::getCurrentClient()] = $httpClient ?: HttpClientDiscovery::find();
+        self::$httpClients[self::getCurrentClient()] = $httpClient ?: self::getDefaultHttpClient();
     }
 
     /**
@@ -109,10 +129,10 @@ final class Fintecture
      */
     public static function getMessageFactory(): ?MessageFactory
     {
-        if (isset(self::$messageFactories[self::getCurrentClient()])) {
+        if (!empty(self::getCurrentClient()) && isset(self::$messageFactories[self::getCurrentClient()])) {
             return self::$messageFactories[self::getCurrentClient()];
         }
-        return null;
+        return self::getDefaultMessageFactory();
     }
 
     /**
@@ -123,7 +143,7 @@ final class Fintecture
         if (!self::$messageFactories) {
             self::$messageFactories = array();
         }
-        self::$messageFactories[self::getCurrentClient()] = MessageFactoryDiscovery::find();
+        self::$messageFactories[self::getCurrentClient()] = self::getDefaultMessageFactory();
     }
 
     /**
@@ -139,9 +159,10 @@ final class Fintecture
     /**
      * Set Api Wrapper.
      */
-    public static function setApiWrapper()
+    public static function setApiWrapper(): ApiWrapper
     {
         self::$apiWrapper = new ApiWrapper();
+        return self::$apiWrapper;
     }
 
     /**

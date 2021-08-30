@@ -45,7 +45,7 @@ class Validation
         $path = '/oauth/secure/accesstoken';
         $headers = Header::generate('POST', $path, $body, 3, $credentials);
 
-        $apiWrapper = Fintecture::getApiWrapper();
+        $apiWrapper = Fintecture::getApiWrapper() ?: Fintecture::setApiWrapper();
         $url = Endpoint::getApiUrl($environment) . ltrim($path, '/');
         $token = $apiWrapper->post($url, $body, false, $headers, 3);
 

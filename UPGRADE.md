@@ -15,7 +15,7 @@ For this, just check our README.md, there are examples for Guzzle and Symfony cl
 
 ### New clients
 
-The Fintecture client `Fintecture\Client` is now divided in two client:
+The Fintecture client `Fintecture\Client` is now divided in two clients:
 * `Fintecture\AisClient` for **AIS operations**
 * `Fintecture\PisClient` for **PIS operations**
 
