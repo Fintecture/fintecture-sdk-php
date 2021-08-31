@@ -9,7 +9,7 @@ class Config
     /**
      * @var string
      */
-    private $appName;
+    private $shopName;
 
     /**
      * @var string
@@ -53,7 +53,7 @@ class Config
 
     public function __construct(array $config)
     {
-        $this->appName = isset($config['appName']) ? $config['appName'] : 'sdk-php-instance';
+        $this->shopName = isset($config['shopName']) ? $config['shopName'] : '';
         $this->appId = isset($config['appId']) ? $config['appId'] : '';
         $this->appSecret = isset($config['appSecret']) ? $config['appSecret'] : '';
         $this->privateKey = isset($config['privateKey']) ? $config['privateKey'] : '';
@@ -65,11 +65,11 @@ class Config
     /**
      * Get App Name.
      *
-     * @return string App Name.
+     * @return string Shop Name.
      */
-    public function getAppName(): string
+    public function getShopName(): string
     {
-        return $this->appName;
+        return $this->shopName;
     }
 
     /**
