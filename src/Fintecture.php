@@ -14,7 +14,7 @@ use Http\Discovery\MessageFactoryDiscovery;
 final class Fintecture
 {
     // SDK Version
-    public const VERSION = '2.0.4';
+    public const VERSION = '2.0.5';
 
     // API URLs
 
@@ -172,7 +172,7 @@ final class Fintecture
      */
     public static function getConfig(): ?Config
     {
-        if (isset(self::$configs[self::getCurrentClient()])) {
+        if (!empty(self::getCurrentClient()) && isset(self::$configs[self::getCurrentClient()])) {
             return self::$configs[self::getCurrentClient()];
         }
         return null;
@@ -199,7 +199,7 @@ final class Fintecture
      */
     public static function getAccessToken(): ?ApiResponse
     {
-        if (isset(self::$accessTokens[self::getCurrentClient()])) {
+        if (!empty(self::getCurrentClient()) && isset(self::$accessTokens[self::getCurrentClient()])) {
             return self::$accessTokens[self::getCurrentClient()];
         }
         return null;

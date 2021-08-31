@@ -27,7 +27,7 @@ Simple usage looks like:
 ```php
 require_once('vendor/autoload.php');
 
-$state = '<my-uniq-id-for-the-payment>'; // It's my transaction ID, I have to generate it myself, it will be sent back in the callback
+$state = '<my-uniq-id-for-the-payment>'; // it's my transaction ID, I have to generate it myself, it will be sent back in the callback
 $pisClient = new \Fintecture\PisClient([
     'appId' => 'app_id',
     'appSecret' => 'app_secret',
@@ -71,6 +71,14 @@ if (!$connect->error) {
     echo $connect->errorMsg;
 }
 ```
+
+### Available options of Client
+
+- 'appId' => 'app_id',
+- 'appSecret' => 'app_secret',
+- 'privateKey' => 'private_key', // could be a file path or the private key itself
+- 'environment' => 'sandbox' // or 'production'
+- 'shopName' => 'My super shop', // don't forget to give your client a nice name (even if it's optional)
 
 ## Advanced usage
 

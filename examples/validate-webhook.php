@@ -42,7 +42,7 @@ if (!$pisConnect->error) {
  *
  * @Route("/webhook", methods={"POST"})
  */
-public function webhook()
+function webhook()
 {
     // Get server vars sent to the webhook
     $body = file_get_contents('php://input');
