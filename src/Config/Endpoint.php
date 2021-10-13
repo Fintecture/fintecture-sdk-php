@@ -27,6 +27,8 @@ class Endpoint
     {
         $environment = $environment ?: self::getCurrentEnvironment();
         switch ($environment) {
+            case 'test':
+                return Fintecture::TEST_API_URL;
             case 'sandbox':
                 return Fintecture::SANDBOX_API_URL;
             case 'production':

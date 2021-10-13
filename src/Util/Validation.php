@@ -32,9 +32,9 @@ class Validation
         $scope = $scope === 'ais' ? 'AIS' : 'PIS';
         $grantType = $scope === 'AIS' ? 'authorization_code' : 'client_credentials';
 
-        $body = array(
+        $body = [
             'grant_type' => $grantType
-        );
+        ];
         if ($scope === 'AIS') {
             $body['code'] = $code;
         } else {
@@ -76,6 +76,9 @@ class Validation
         }
 
         $signingString = preg_split("/\n|\r\n?/", $decrypted);
+        if (!isset($signingString[1])) {
+            return false;
+        }
         $digestSignature = str_replace('"', '', substr($signingString[1], 8)); // 0: date, 1: digest
 
         // match the digest calculated from the received payload, the digest found in the headers and the digest encoded from the signature

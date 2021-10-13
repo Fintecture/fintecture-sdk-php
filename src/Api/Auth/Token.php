@@ -22,9 +22,9 @@ class Token extends Api
         $scope = $clientIdentifier === 'ais' ? 'AIS' : 'PIS';
         $grantType = $clientIdentifier === 'ais' ? 'authorization_code' : 'client_credentials';
 
-        $body = array(
+        $body = [
             'grant_type' => $grantType
-        );
+        ];
         if ($scope === 'AIS') {
             $body['code'] = $code;
         } else {
@@ -44,10 +44,10 @@ class Token extends Api
      */
     public function refresh(string $refreshToken): ApiResponse
     {
-        $body = array(
+        $body = [
             'grant_type' => 'refresh_token',
             'refresh_token' => $refreshToken
-        );
+        ];
 
         return $this->apiWrapper->post('oauth/refresh_token', $body, false, null, 2);
     }

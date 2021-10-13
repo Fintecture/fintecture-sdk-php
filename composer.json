@@ -16,6 +16,11 @@
             "homepage": "https://www.fintecture.com"
         }
     ],
+    "config": {
+        "platform": {
+            "php": "7.1.0"
+        }
+    },
     "require": {
         "php": ">=7.1",
         "ext-curl": "*",
@@ -26,9 +31,22 @@
         "http-interop/http-factory-guzzle": "*",
         "php-http/discovery": "*"
     },
+    "require-dev": {
+        "ext-dom": "*",
+        "ext-zip": "*",
+        "phpunit/phpunit": "^7",
+        "phpstan/phpstan": "^0.12",
+        "php-http/mock-client": "^1.4",
+        "mikey179/vfsstream": "^1.6"
+    },
     "autoload": {
         "psr-4": {
             "Fintecture\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Fintecture\\Tests\\": "tests/"
         }
     }
 }

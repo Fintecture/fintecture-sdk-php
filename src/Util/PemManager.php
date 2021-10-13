@@ -42,19 +42,19 @@ class PemManager
     {
         $privateKey = preg_replace("/\n\r/m", "\n", $privateKey);
         if (!$this->encryptionManager) {
-            return array('privateKey' => $privateKey, 'encrypted' => false);
+            return ['privateKey' => $privateKey, 'encrypted' => false];
         }
 
         // Decrypt private key if needed
         $decryptedPrivateKey = $this->encryptionManager->decryptContent($privateKey);
         if (!$decryptedPrivateKey) {
             // Encrypt pem file for better protection (useful if stored in database)
-            return array(
+            return [
                 'privateKey' => $this->encryptionManager->encryptContent($privateKey),
                 'encrypted' => true
-            );
+            ];
         }
-        return array('privateKey' => $decryptedPrivateKey, 'encrypted' => false);
+        return ['privateKey' => $decryptedPrivateKey, 'encrypted' => false];
     }
 
     /**

@@ -146,6 +146,49 @@ These methods follow our [API structure](https://docs.fintecture.com/v2).
 - testAccount
     - get
 
+## Development
+
+### Requirements
+
+- PHP
+- Git
+- Composer
+- Make
+- Xdebug (for test coverage)
+
+### Initialize project for development
+
+```bash
+make init
+```
+
+### PHPUnit (Unit Tests)
+
+Then you can run the tests:
+
+```bash
+make test
+```
+
+To generate the test coverage report, you can run this command:
+
+```bash
+make test-coverage
+```
+
+### PHPStan (Static Analysis)
+
+There are 9 levels (0-8). Level is set in `phpstan.neon`.
+```bash
+make analyse
+```
+
+### PHP CS Fixer (Coding Standards)
+
+```bash
+make format
+```
+
 ## Troubleshooting
 
 Encountering an issue? Please contact us at developer@fintecture.com.

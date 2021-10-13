@@ -54,7 +54,7 @@ function webhook()
 
     if ($validSignature) {
         // Response can be handled safely
-        var_dump($_POST); // you should have received some informations from our API
+        var_dump($_POST); // you should have received some information from our API
     } else {
         exit('Invalid signature');
     }

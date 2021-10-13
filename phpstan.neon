@@ -1,0 +1,11 @@
+parameters:
+    phpVersion: 70100
+    level: 5
+    paths:
+        - .
+    excludePaths:
+        - examples
+        - tools
+        - vendor
+    earlyTerminatingFunctionCalls:
+    - trigger_error

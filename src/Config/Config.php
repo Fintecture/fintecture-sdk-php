@@ -202,7 +202,7 @@ class Config
      */
     public function validate(): bool
     {
-        $errors = array();
+        $errors = [];
         // Required options
         if (!$this->validateAppId()) {
             $errors[] = 'Invalid App ID.';

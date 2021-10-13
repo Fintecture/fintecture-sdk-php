@@ -2,7 +2,6 @@
 
 namespace Fintecture;
 
-use Fintecture\Api\ApiFactory;
 use Fintecture\Api\ApiResponse;
 use Fintecture\Api\ApiWrapper;
 use Fintecture\Config\Config;
@@ -14,17 +13,18 @@ use Http\Discovery\MessageFactoryDiscovery;
 final class Fintecture
 {
     // SDK Version
-    public const VERSION = '2.0.5';
+    public const VERSION = '2.0.6';
 
     // API URLs
 
     // Main
+    public const TEST_API_URL = 'https://api-sandbox-test.fintecture.com/';
     public const SANDBOX_API_URL = 'https://api-sandbox.fintecture.com/';
     public const PRODUCTION_API_URL = 'https://api.fintecture.com/';
 
     // Environment
     public const DEFAULT_ENV = 'sandbox';
-    public const AVAILABLE_ENVS = ['sandbox', 'production'];
+    public const AVAILABLE_ENVS = ['test', 'sandbox', 'production'];
 
     /**
      * @var string
@@ -117,7 +117,7 @@ final class Fintecture
     public static function setHttpClient(?HttpClient $httpClient)
     {
         if (!self::$httpClients) {
-            self::$httpClients = array();
+            self::$httpClients = [];
         }
         self::$httpClients[self::getCurrentClient()] = $httpClient ?: self::getDefaultHttpClient();
     }
@@ -141,7 +141,7 @@ final class Fintecture
     public static function setMessageFactory()
     {
         if (!self::$messageFactories) {
-            self::$messageFactories = array();
+            self::$messageFactories = [];
         }
         self::$messageFactories[self::getCurrentClient()] = self::getDefaultMessageFactory();
     }
@@ -186,7 +186,7 @@ final class Fintecture
     public static function setConfig(array $config)
     {
         if (!self::$configs) {
-            self::$configs = array();
+            self::$configs = [];
         }
         self::$configs[self::getCurrentClient()] = new Config($config);
         self::$configs[self::getCurrentClient()]->validate();
