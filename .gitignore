@@ -10,3 +10,5 @@ tests/report/
 # PHP CS Fixer
 tools/php-cs-fixer/
 .php-cs-fixer.cache
+
+.gitlab-*
