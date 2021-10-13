@@ -21,9 +21,9 @@ class Authorize extends Api
      */
     public function generate(string $providerId, string $redirectUri, bool $useToken = true): ApiResponse
     {
-        $params = array(
+        $params = [
             'redirect_uri' => $redirectUri,
-        );
+        ];
         if (!$useToken) {
             $params['response_type'] = 'code';
         }
@@ -57,9 +57,9 @@ class Authorize extends Api
     ): ApiResponse {
         $path = '/ais/v1/provider/' . $providerId . '/authorize/decoupled/' . $pollingId;
         if (!$useToken) {
-            $params = array(
+            $params = [
                 'response_type' => 'code'
-            );
+            ];
             $params = http_build_query($params);
             $path .= '?' . $params;
         }

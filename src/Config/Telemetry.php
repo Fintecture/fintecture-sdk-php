@@ -3,7 +3,6 @@
 namespace Fintecture\Config;
 
 use Fintecture\Fintecture;
-use Fintecture\Config\Endpoint;
 
 class Telemetry
 {
@@ -22,14 +21,42 @@ class Telemetry
             return false;
         }
 
-        $headers = array(
+        $headers = [
             'Content-Type' => 'application/json'
-        );
+        ];
 
         $body = self::getMetrics($action, $additionalMetrics);
 
         $apiWrapper = Fintecture::getApiWrapper() ?: Fintecture::setApiWrapper();
         $apiResponse = $apiWrapper->post(Fintecture::PRODUCTION_API_URL . 'ext/v1/activity', $body, true, $headers);
+        return !$apiResponse->error; // true if no error, false if there is an error
+    }
+
+    /**
+     * Logs a metric
+     *
+     * @param string $category
+     *
+     * @return bool Sending status.
+     */
+    public static function logMetric(string $category): bool
+    {
+        // Don't send a call if telemetry is disabled
+        if (Fintecture::getConfig() && !Fintecture::getConfig()->getEnabledTelemetry()) {
+            return false;
+        }
+
+        $headers = [
+            'Content-Type' => 'application/json'
+        ];
+
+        $body = [
+            'app_id' => Fintecture::getConfig()->getAppId(),
+            'category' => $category
+        ];
+
+        $apiWrapper = Fintecture::getApiWrapper() ?: Fintecture::setApiWrapper();
+        $apiResponse = $apiWrapper->post(Fintecture::PRODUCTION_API_URL . 'ext/v1/metric', $body, true, $headers);
         return !$apiResponse->error; // true if no error, false if there is an error
     }
 
@@ -44,11 +71,11 @@ class Telemetry
     private static function getMetrics(string $action, array $additionalMetrics = null): array
     {
         // Construct configuration return
-        $metrics = array(
+        $metrics = [
             'php_version' => phpversion(),
             'sdk_version' => Fintecture::VERSION,
             'action' => $action
-        );
+        ];
         if ($additionalMetrics) {
             $metrics = array_merge($metrics, $additionalMetrics);
         }

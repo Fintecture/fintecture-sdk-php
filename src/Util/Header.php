@@ -39,22 +39,23 @@ class Header
         $requestId = Crypto::uuid4();
         $headers = ['Accept' => 'application/json']; // init headers
 
-        // Generate signature
-        $signingString = '(request-target): ' . strtolower($method) . ' ' . $path . "\n";
-        $signingString .= 'date: ' . $date . "\n";
+        // Build digest if needed
         if ('POST' === $method && $authMethod !== 2) {
             $digest = 'SHA-256=' . Crypto::encodeToBase64($body, true);
-            $signingString .= 'digest: ' . $digest . "\n";
             $headers['Digest'] = $digest;
             $headers['Content-Type'] = 'application/json';
         }
-        $signingString .= 'x-request-id: ' . $requestId;
-        if (!openssl_sign($signingString, $signature, $privateKey, OPENSSL_ALGO_SHA256)) {
-            throw new \Exception('Signature can\'t be generated');
-        }
-        $signatureBase64 = base64_encode($signature);
-        $signature = 'keyId="' . $appId . '",algorithm="rsa-sha256",headers="(request-target) date '
-            . (isset($digest) ? 'digest ' : '') . 'x-request-id",signature="' . $signatureBase64 . '"';
+
+        $signature = self::generateSignature([
+            'appId' => $appId,
+            'date' => $date,
+            'digest' => isset($digest) ? $digest : '',
+            'method' => $method,
+            'path' => $path,
+            'privateKey' => $privateKey,
+            'requestId' => $requestId
+        ]);
+
         // Auth methods
         if ($authMethod === 1) {
             $token = Fintecture::getAccessToken();
@@ -85,5 +86,43 @@ class Header
         }
 
         return $headers;
+    }
+
+    /**
+     * Generate signature
+     *
+     * @param array $data Required information to generate signature.
+     *
+     * @return string Generated signature.
+     */
+    public static function generateSignature(array $data): string
+    {
+        // Generate signature
+        $signingString = '(request-target): ' . strtolower($data['method']) . ' ' . $data['path'] . "\n";
+        $signingString .= 'date: ' . $data['date'] . "\n";
+        if (!empty($data['digest'])) {
+            $signingString .= 'digest: ' . $data['digest'] . "\n";
+        }
+        $signingString .= 'x-request-id: ' . $data['requestId'];
+        if (!openssl_sign($signingString, $signature, $data['privateKey'], OPENSSL_ALGO_SHA256)) {
+            throw new \Exception('Signature can\'t be generated');
+        }
+        return self::generateFullSignature($data, $signature);
+    }
+
+    /**
+     * Generate full signature
+     *
+     * @param array $data Data.
+     * @param string $signature Signature.
+     *
+     * @return string Full generated signature.
+     */
+    public static function generateFullSignature(array $data, string $signature): string
+    {
+        $signatureBase64 = base64_encode($signature);
+        $signature = 'keyId="' . $data['appId'] . '",algorithm="rsa-sha256",headers="(request-target) date '
+            . (!empty($data['digest']) ? 'digest ' : '') . 'x-request-id",signature="' . $signatureBase64 . '"';
+        return $signature;
     }
 }

@@ -51,9 +51,13 @@ class ApiWrapper
             }
         }
 
-        $response = $this->httpClient->sendRequest(
-            $this->messageFactory->createRequest('GET', $this->getFinalURL($endpoint), $headers)
-        );
+        try {
+            $response = $this->httpClient->sendRequest(
+                $this->messageFactory->createRequest('GET', $this->getFinalURL($endpoint), $headers)
+            );
+        } catch (\Exception $e) {
+            throw new \Exception('Can\'t handle HTTP request');
+        }
 
         $result = json_decode($response->getBody()->getContents());
         return new ApiResponse($response, $result);
@@ -93,9 +97,13 @@ class ApiWrapper
             }
         }
 
-        $response = $this->httpClient->sendRequest(
-            $this->messageFactory->createRequest('POST', $this->getFinalURL($endpoint), $headers, $body)
-        );
+        try {
+            $response = $this->httpClient->sendRequest(
+                $this->messageFactory->createRequest('POST', $this->getFinalURL($endpoint), $headers, $body)
+            );
+        } catch (\Exception $e) {
+            throw new \Exception('Can\'t handle HTTP request');
+        }
 
         $result = json_decode($response->getBody()->getContents());
         return new ApiResponse($response, $result);
@@ -135,9 +143,13 @@ class ApiWrapper
             }
         }
 
-        $response = $this->httpClient->sendRequest(
-            $this->messageFactory->createRequest('DELETE', $this->getFinalURL($endpoint), $headers, $body)
-        );
+        try {
+            $response = $this->httpClient->sendRequest(
+                $this->messageFactory->createRequest('DELETE', $this->getFinalURL($endpoint), $headers, $body)
+            );
+        } catch (\Exception $e) {
+            throw new \Exception('Can\'t handle HTTP request');
+        }
 
         $result = json_decode($response->getBody()->getContents());
         return new ApiResponse($response, $result);
