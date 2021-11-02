@@ -2,10 +2,8 @@
 
 namespace Fintecture\Api\Ais;
 
-use Fintecture\Fintecture;
 use Fintecture\Api\Api;
 use Fintecture\Api\ApiResponse;
-use Fintecture\Api\Auth\Token;
 use Fintecture\Util\Header;
 
 class Authorize extends Api

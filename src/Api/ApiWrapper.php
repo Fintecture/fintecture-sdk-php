@@ -3,7 +3,6 @@
 namespace Fintecture\Api;
 
 use Fintecture\Api\ApiResponse;
-use Fintecture\Api\Auth\Token;
 use Fintecture\Config\Endpoint;
 use Fintecture\Fintecture;
 use Fintecture\Util\Crypto;
