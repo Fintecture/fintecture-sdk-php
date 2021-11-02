@@ -13,7 +13,7 @@ use Http\Discovery\MessageFactoryDiscovery;
 final class Fintecture
 {
     // SDK Version
-    public const VERSION = '2.0.6';
+    public const VERSION = '2.0.7';
 
     // API URLs
 

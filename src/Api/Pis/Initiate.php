@@ -2,7 +2,6 @@
 
 namespace Fintecture\Api\Pis;
 
-use Fintecture\Fintecture;
 use Fintecture\Api\Api;
 use Fintecture\Api\ApiResponse;
 

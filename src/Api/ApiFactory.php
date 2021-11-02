@@ -18,7 +18,6 @@ use Fintecture\Api\Pis\Settlement;
 use Fintecture\Api\Resources\Application;
 use Fintecture\Api\Resources\Provider;
 use Fintecture\Api\Resources\TestAccount;
-use Fintecture\Fintecture;
 
 class ApiFactory
 {

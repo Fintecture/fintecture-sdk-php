@@ -2,10 +2,8 @@
 
 namespace Fintecture;
 
-use Fintecture\Api\Api;
 use Fintecture\Api\ApiFactory;
 use Fintecture\Api\ApiResponse;
-use Fintecture\Config\Telemetry;
 use Fintecture\Util\EncryptionManager;
 use Fintecture\Util\PemManager;
 use Http\Client\HttpClient;
