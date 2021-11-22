@@ -2,10 +2,9 @@
 
 namespace Fintecture\Tests;
 
-use Fintecture\Fintecture;
 use Fintecture\Api\ApiResponse;
+use Fintecture\Fintecture;
 use Fintecture\Util\Header;
-use Fintecture\Tests\BaseTest;
 
 class HeaderTest extends BaseTest
 {

@@ -2,13 +2,13 @@
 
 namespace Fintecture\Tests;
 
-use Fintecture\Fintecture;
 use Fintecture\AisClient;
-use Fintecture\PisClient;
 use Fintecture\Api\ApiResponse;
-use PHPUnit\Framework\TestCase as PHPUnitTestCase;
+use Fintecture\Fintecture;
+use Fintecture\PisClient;
 use Http\Mock\Client as MockClient;
 use org\bovigo\vfs\vfsStream;
+use PHPUnit\Framework\TestCase as PHPUnitTestCase;
 
 abstract class BaseTest extends PHPUnitTestCase
 {

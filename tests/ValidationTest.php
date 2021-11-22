@@ -6,7 +6,6 @@ use Fintecture\Fintecture;
 use Fintecture\Util\Crypto;
 use Fintecture\Util\Header;
 use Fintecture\Util\Validation;
-use Fintecture\Tests\BaseTest;
 
 class SignatureTest extends BaseTest
 {

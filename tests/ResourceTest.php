@@ -3,7 +3,6 @@
 namespace Fintecture\Tests;
 
 use Fintecture\Api\ApiResponse;
-use Fintecture\Tests\BaseTest;
 
 class ResourceTest extends BaseTest
 {

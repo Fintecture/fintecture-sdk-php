@@ -2,8 +2,6 @@
 
 namespace Fintecture\Util;
 
-use Fintecture\Util\FileSystem;
-
 class EncryptionManager
 {
     public const ENCRYPTION_METHOD = 'AES-128-CBC';

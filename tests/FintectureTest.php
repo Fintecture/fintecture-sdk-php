@@ -2,10 +2,9 @@
 
 namespace Fintecture\Tests;
 
+use Fintecture\Fintecture;
 use Http\Client\HttpClient;
 use Http\Message\MessageFactory;
-use Fintecture\Fintecture;
-use Fintecture\Api\ApiResponse;
 
 class FintectureTest extends BaseTest
 {

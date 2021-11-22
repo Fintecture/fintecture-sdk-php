@@ -2,9 +2,8 @@
 
 namespace Fintecture\Util;
 
-use Fintecture\Fintecture;
 use Fintecture\Api\ApiResponse;
-use Fintecture\Util\Crypto;
+use Fintecture\Fintecture;
 
 class Header
 {

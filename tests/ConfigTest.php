@@ -3,7 +3,6 @@
 namespace Fintecture\Tests;
 
 use Fintecture\Config\Config;
-use PHPUnit\Framework\TestCase as PHPUnitTestCase;
 
 class ConfigTest extends BaseTest
 {

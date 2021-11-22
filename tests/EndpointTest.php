@@ -2,9 +2,8 @@
 
 namespace Fintecture\Tests;
 
-use Fintecture\Fintecture;
 use Fintecture\Config\Endpoint;
-use Fintecture\Tests\BaseTest;
+use Fintecture\Fintecture;
 
 class EndpointTest extends BaseTest
 {

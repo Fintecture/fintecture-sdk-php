@@ -51,7 +51,7 @@ class Telemetry
         ];
 
         $body = [
-            'app_id' => Fintecture::getConfig()->getAppId(),
+            'application_id' => Fintecture::getConfig()->getAppId(),
             'category' => $category
         ];
 
