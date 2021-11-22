@@ -2,8 +2,6 @@
 
 namespace Fintecture\Util;
 
-use Fintecture\Util\EncryptionManager;
-
 class PemManager
 {
     private $encryptionManager;

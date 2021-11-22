@@ -2,12 +2,11 @@
 
 namespace Fintecture\Tests;
 
-use Fintecture\Fintecture;
-use Fintecture\Tests\BaseTest;
 use Fintecture\Api\ApiResponse;
+use Fintecture\Fintecture;
 use Fintecture\PisClient;
-use PHPUnit\Framework\Error\Error;
 use Http\Mock\Client as MockClient;
+use PHPUnit\Framework\Error\Error;
 
 class ClientTest extends BaseTest
 {

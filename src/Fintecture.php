@@ -6,14 +6,14 @@ use Fintecture\Api\ApiResponse;
 use Fintecture\Api\ApiWrapper;
 use Fintecture\Config\Config;
 use Http\Client\HttpClient;
-use Http\Message\MessageFactory;
 use Http\Discovery\HttpClientDiscovery;
 use Http\Discovery\MessageFactoryDiscovery;
+use Http\Message\MessageFactory;
 
 final class Fintecture
 {
     // SDK Version
-    public const VERSION = '2.0.7';
+    public const VERSION = '2.0.8';
 
     // API URLs
 

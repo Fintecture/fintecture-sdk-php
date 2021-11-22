@@ -2,9 +2,6 @@
 
 namespace Fintecture\Tests;
 
-use Fintecture\Fintecture;
-use Fintecture\Tests\BaseTest;
-
 class ApiWrapperTest extends BaseTest
 {
     public function testGet()

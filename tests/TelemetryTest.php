@@ -2,9 +2,8 @@
 
 namespace Fintecture\Tests;
 
-use Fintecture\Fintecture;
 use Fintecture\Config\Telemetry;
-use Fintecture\Tests\BaseTest;
+use Fintecture\Fintecture;
 
 class TelemetryTest extends BaseTest
 {

@@ -2,9 +2,8 @@
 
 namespace Fintecture\Util;
 
-use Fintecture\Fintecture;
-use Fintecture\Util\Crypto;
 use Fintecture\Config\Endpoint;
+use Fintecture\Fintecture;
 
 class Validation
 {

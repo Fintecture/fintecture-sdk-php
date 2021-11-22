@@ -2,9 +2,9 @@
 
 namespace Fintecture\Api\Auth;
 
-use Fintecture\Fintecture;
 use Fintecture\Api\Api;
 use Fintecture\Api\ApiResponse;
+use Fintecture\Fintecture;
 
 class Token extends Api
 {

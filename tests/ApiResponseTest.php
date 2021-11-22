@@ -2,9 +2,7 @@
 
 namespace Fintecture\Tests;
 
-use Fintecture\Fintecture;
 use Fintecture\Api\ApiResponse;
-use Fintecture\Tests\BaseTest;
 
 class ApiResponseTest extends BaseTest
 {

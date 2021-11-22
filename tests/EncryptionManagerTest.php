@@ -4,10 +4,9 @@ namespace Fintecture\Tests;
 
 use Fintecture\Util\EncryptionManager;
 use Fintecture\Util\PemManager;
-use PHPUnit\Framework\TestCase as PHPUnitTestCase;
-use PHPUnit\Framework\Error\Notice;
-use PHPUnit\Framework\Error\Error;
 use org\bovigo\vfs\vfsStream;
+use PHPUnit\Framework\Error\Error;
+use PHPUnit\Framework\Error\Notice;
 
 class EncryptionTest extends BaseTest
 {
