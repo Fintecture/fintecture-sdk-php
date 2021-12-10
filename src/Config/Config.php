@@ -118,7 +118,7 @@ class Config
      *
      * @param string $finalPrivateKey The plain Private Key.
      */
-    public function setFinalPrivateKey(string $finalPrivateKey)
+    public function setFinalPrivateKey(string $finalPrivateKey): void
     {
         $this->finalPrivateKey = $finalPrivateKey;
     }
@@ -138,7 +138,7 @@ class Config
      *
      * @param string $encryptedPrivateKey The encrypted Private Key.
      */
-    public function setEncryptedPrivateKey(string $encryptedPrivateKey)
+    public function setEncryptedPrivateKey(string $encryptedPrivateKey): void
     {
         $this->encryptedPrivateKey = $encryptedPrivateKey;
     }
@@ -158,7 +158,7 @@ class Config
      *
      * @param string $environment The new current environment.
      */
-    public function setEnvironment(string $environment)
+    public function setEnvironment(string $environment): void
     {
         $this->environment = $environment;
     }
@@ -188,7 +188,7 @@ class Config
      *
      * @param bool $enabledTelemetry Telemetry status.
      */
-    public function setEnabledTelemetry(bool $enabledTelemetry)
+    public function setEnabledTelemetry(bool $enabledTelemetry): void
     {
         $this->enabledTelemetry = $enabledTelemetry;
     }

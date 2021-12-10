@@ -7,7 +7,7 @@ use Fintecture\Fintecture;
 
 class EndpointTest extends BaseTest
 {
-    public function testUrls()
+    public function testUrls(): void
     {
         // "Sandbox" test
         $this->assertTrue(Endpoint::getApiUrl() === Fintecture::SANDBOX_API_URL);

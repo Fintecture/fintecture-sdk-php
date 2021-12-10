@@ -4,6 +4,7 @@ namespace Fintecture\Util;
 
 class PemManager
 {
+    /** @var ?EncryptionManager $encryptionManager */
     private $encryptionManager;
 
     public function __construct(EncryptionManager $encryptionManager = null)

@@ -7,7 +7,7 @@ use Fintecture\Fintecture;
 
 class TelemetryTest extends BaseTest
 {
-    public function testLogAction()
+    public function testLogAction(): void
     {
         $this->assertFalse(Telemetry::logAction('test', ['additionalConfig' => 'test']));
 
@@ -19,7 +19,7 @@ class TelemetryTest extends BaseTest
         Fintecture::getConfig()->setEnabledTelemetry(true);
     }
 
-    public function testLogMetric()
+    public function testLogMetric(): void
     {
         $this->assertFalse(Telemetry::logMetric('test'));
 

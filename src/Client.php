@@ -32,7 +32,7 @@ abstract class Client
 
     /**
      * @param array $config The config of the user app to create the main client.
-     * @param HttpClient|null $httpClient Client to do HTTP requests, if not set, auto discovery will be used to find a HTTP client.
+     * @param ?HttpClient $httpClient Client to do HTTP requests, if not set, auto discovery will be used to find a HTTP client.
      */
     public function __construct(array $config, HttpClient $httpClient = null)
     {
@@ -62,7 +62,7 @@ abstract class Client
      *
      * @throws \Exception if the final private key is not well formatted.
      */
-    private function initPrivateKey()
+    private function initPrivateKey(): void
     {
         // Private Key handling / config updates
         $privateKey = $this->pemManager->readPrivateKey(Fintecture::getConfig()->getPrivateKey());
@@ -72,7 +72,7 @@ abstract class Client
         if ($this->pemManager->isPemString($finalPrivateKey)) {
             Fintecture::getConfig()->setFinalPrivateKey($finalPrivateKey);
         } else {
-            throw new \Exception('The private key is not well formatted. Please verify it');
+            throw new \Exception('The private key is not well formatted. Please verify it.');
         }
 
         if (Fintecture::getConfig()->getEncryptionDir()) {
@@ -88,7 +88,7 @@ abstract class Client
     /**
      * Get the generated encrypted Private Key for storage reasons in an encryption context.
      *
-     * @return string|null Private Key
+     * @return ?string Private Key
      */
     public function getEncryptedPrivateKey(): ?string
     {
@@ -99,7 +99,7 @@ abstract class Client
     /**
      * Get the final used private key in an encryption context.
      *
-     * @return string|null Private Key
+     * @return ?string Private Key
      */
     public function getFinalPrivateKey(): ?string
     {
@@ -112,7 +112,7 @@ abstract class Client
      *
      * @param ApiResponse $accessToken Access Token
      */
-    public function setAccessToken(ApiResponse $accessToken)
+    public function setAccessToken(ApiResponse $accessToken): void
     {
         Fintecture::setCurrentClient($this->identifier);
         Fintecture::setAccessToken($accessToken);
@@ -125,10 +125,11 @@ abstract class Client
      *
      * @throws \Exception if url is invalid.
      */
-    public function redirect(string $url)
+    public function redirect(string $url): void
     {
         if (filter_var($url, FILTER_VALIDATE_URL) !== false) {
             header('Location: ' . $url);
+            exit;
         } else {
             throw new \Exception('Invalid target url. Please verify the format.');
         }

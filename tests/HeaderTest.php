@@ -5,18 +5,21 @@ namespace Fintecture\Tests;
 use Fintecture\Api\ApiResponse;
 use Fintecture\Fintecture;
 use Fintecture\Util\Header;
+use Psr\Http\Message\ResponseInterface;
 
 class HeaderTest extends BaseTest
 {
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
-        $token = new ApiResponse([], (object) ['access_token' => 'token']);
+        /** @var ResponseInterface $response */
+        $response = $this->createMock('Psr\Http\Message\ResponseInterface');
+        $token = new ApiResponse($response, (object) ['access_token' => 'token']);
         Fintecture::setAccessToken($token);
     }
 
-    public function testGenerateWithClientToken()
+    public function testGenerateWithClientToken(): void
     {
         $params = http_build_query([
             'state' => 'random-id',
@@ -31,7 +34,7 @@ class HeaderTest extends BaseTest
         $this->assertTrue(isset($headers['Authorization']));
     }
 
-    public function testGenerateWithAppID()
+    public function testGenerateWithAppID(): void
     {
         $params = http_build_query([
             'state' => 'random-id',
@@ -46,7 +49,7 @@ class HeaderTest extends BaseTest
         $this->assertTrue(isset($headers['app_id']));
     }
 
-    public function testGenerateWithClientTokenAndBody()
+    public function testGenerateWithClientTokenAndBody(): void
     {
         $params = http_build_query([
             'state' => 'random-id',
@@ -61,7 +64,7 @@ class HeaderTest extends BaseTest
         $this->assertTrue(isset($headers['Authorization']));
     }
 
-    public function testGenerateWithAppIDAndBody()
+    public function testGenerateWithAppIDAndBody(): void
     {
         $params = http_build_query([
             'state' => 'random-id',
@@ -76,7 +79,7 @@ class HeaderTest extends BaseTest
         $this->assertTrue(isset($headers['app_id']));
     }
 
-    public function testGenerateWithAppIDAndTokenAndBody()
+    public function testGenerateWithAppIDAndTokenAndBody(): void
     {
         $path = '/oauth/secure/accesstoken';
 

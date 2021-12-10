@@ -80,6 +80,10 @@ if (!$connect->error) {
 - 'environment' => 'sandbox' // or 'production'
 - 'shopName' => 'My super shop', // don't forget to give your client a nice name (even if it's optional)
 
+### Examples
+
+Some examples (including webhook handling) are available in the [*examples* folder](https://github.com/Fintecture/fintecture-sdk-php/tree/master/examples).
+
 ## Advanced usage
 
 We are decoupled from any HTTP messaging client with help by [HTTPlug](https://httplug.io).

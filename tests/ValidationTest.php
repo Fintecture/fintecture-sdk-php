@@ -9,7 +9,7 @@ use Fintecture\Util\Validation;
 
 class SignatureTest extends BaseTest
 {
-    public function testValidCredentials()
+    public function testValidCredentials(): void
     {
         $config = Fintecture::getConfig();
 
@@ -37,32 +37,32 @@ class SignatureTest extends BaseTest
         $this->assertFalse($valid);
     }
 
-    public function testInvalidSignature()
+    public function testInvalidSignature(): void
     {
         $digest = file_get_contents($this->dataPath . 'bad_digest.txt');
         $signature = file_get_contents($this->dataPath . 'bad_signature.txt');
         $this->assertFalse(Validation::validSignature(['key' => 'value'], $digest, $signature));
     }
 
-    public function testvalidSignature()
+    public function testValidSignature(): void
     {
         // This test simulate behavior of our webhook call
 
         $privateKey = Fintecture::getConfig()->getFinalPrivateKey();
         $privateKey = openssl_pkey_get_private($privateKey);
         if (!$privateKey) {
-            throw new \Exception('Cannot get private key');
+            throw new \Exception('Cannot get private key.');
         }
         $publicKeyInfos = openssl_pkey_get_details($privateKey);
         if (!$publicKeyInfos) {
-            throw new \Exception('Cannot get public key infos');
+            throw new \Exception('Cannot get public key infos.');
         }
 
         // Generate signature
         $signingString = 'date: ' . date('r') . "\n";
         $signingString .= 'digest: SHA-256=' . Crypto::encodeToBase64($this->payload, true) . "\n";
         if (!openssl_public_encrypt($signingString, $signature, $publicKeyInfos['key'], OPENSSL_PKCS1_OAEP_PADDING)) {
-            throw new \Exception('Signature can\'t be generated');
+            throw new \Exception('Signature can\'t be generated.');
         }
         $signature = Header::generateFullSignature(['appId' => Fintecture::getConfig()->getAppId()], $signature);
 

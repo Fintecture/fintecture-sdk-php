@@ -7,8 +7,13 @@ class EncryptionManager
     public const ENCRYPTION_METHOD = 'AES-128-CBC';
     public const ENCRYPTION_FILE_PREFIX = 'fintecture_key_';
 
+    /** @var int|false $ivLen */
     private $ivLen;
+
+    /** @var ?string $directory */
     private $directory;
+
+    /** @var string $encryptionKey */
     private $encryptionKey;
 
     public function __construct(string $directory = null)
@@ -105,6 +110,9 @@ class EncryptionManager
         return $ciphertext;
     }
 
+    /**
+     * @return string|false
+     */
     public function decryptContent(string $content)
     {
         $decodedContent = base64_decode($content);

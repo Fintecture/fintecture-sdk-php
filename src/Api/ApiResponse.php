@@ -2,13 +2,21 @@
 
 namespace Fintecture\Api;
 
+use Psr\Http\Message\ResponseInterface;
+
 class ApiResponse
 {
+    /** @var ?object $result */
     public $result;
+
+    /** @var bool $error */
     public $error;
+
+    /** @var string $errorMsg */
     public $errorMsg;
 
-    public function __construct($response, $result)
+    /** @param ?object $result */
+    public function __construct(ResponseInterface $response, $result)
     {
         $this->result = $result;
         $this->checkResult($response);
@@ -19,7 +27,7 @@ class ApiResponse
      *
       * @param object $response Response object
      */
-    private function checkResult($response)
+    private function checkResult($response): void
     {
         // Check JSON
         if (null === $this->result) {
@@ -52,7 +60,7 @@ class ApiResponse
      *
      * @param string $message Error message.
      */
-    private function setError(string $message = '')
+    private function setError(string $message = ''): void
     {
         $this->error = !empty($message);
         $this->errorMsg = $this->error ? $message : '';
