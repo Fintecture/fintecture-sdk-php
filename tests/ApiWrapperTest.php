@@ -4,15 +4,15 @@ namespace Fintecture\Tests;
 
 class ApiWrapperTest extends BaseTest
 {
-    public function testGet()
+    public function testGet(): void
     {
         $response = $this->apiWrapper->get('test', ['test' => 'test']);
         $this->assertTrue($response->error);
     }
 
-    public function testPost()
+    public function testPost(): void
     {
-        $response = $this->apiWrapper->post('test', ['test' => 'test'], 1, ['test' => 'test']);
+        $response = $this->apiWrapper->post('test', ['test' => 'test'], true, ['test' => 'test']);
         $this->assertTrue($response->error);
     }
 }

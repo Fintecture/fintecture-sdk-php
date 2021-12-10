@@ -4,26 +4,41 @@ namespace Fintecture\Tests;
 
 use Fintecture\AisClient;
 use Fintecture\Api\ApiResponse;
+use Fintecture\Api\ApiWrapper;
 use Fintecture\Fintecture;
 use Fintecture\PisClient;
 use Http\Mock\Client as MockClient;
 use org\bovigo\vfs\vfsStream;
 use PHPUnit\Framework\TestCase as PHPUnitTestCase;
+use Psr\Http\Message\ResponseInterface;
 
 abstract class BaseTest extends PHPUnitTestCase
 {
+    /** @var \org\bovigo\vfs\vfsStreamDirectory $root */
     public $root;
 
+    /** @var string $dataPath */
     public $dataPath;
 
+    /** @var string $privateKey */
     public $privateKey;
+
+    /** @var string $privateKeyPath */
     public $privateKeyPath;
+
+    /** @var string $encryptedPrivateKey */
     public $encryptedPrivateKey;
 
+    /** @var AisClient $aisClient */
     public $aisClient;
+
+    /** @var PisClient $pisClient */
     public $pisClient;
+
+    /** @var ApiWrapper $apiWrapper */
     public $apiWrapper;
 
+    /** @var array $payload */
     public $payload = [
         'meta' => [
             // Info of the buyer
@@ -46,7 +61,7 @@ abstract class BaseTest extends PHPUnitTestCase
         ]
     ];
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->root = vfsStream::setup('encryption-keys');
 
@@ -56,7 +71,9 @@ abstract class BaseTest extends PHPUnitTestCase
         $this->privateKey = file_get_contents($this->privateKeyPath);
         $this->encryptedPrivateKey = file_get_contents($this->dataPath . 'encrypted_private_key.txt');
 
-        $newToken = new ApiResponse([], (object) ['access_token' => 'token']);
+        /** @var ResponseInterface $response */
+        $response = $this->createMock('Psr\Http\Message\ResponseInterface');
+        $newToken = new ApiResponse($response, (object) ['access_token' => 'token']);
 
         $this->aisClient = new AisClient([
             'appId' => 'test',

@@ -1,6 +1,6 @@
 parameters:
     phpVersion: 70100
-    level: 5
+    level: 6
     paths:
         - .
     excludePaths:
@@ -8,4 +8,10 @@ parameters:
         - tools
         - vendor
     earlyTerminatingFunctionCalls:
-    - trigger_error
+        - trigger_error
+    ignoreErrors:
+        - '#Access to an undefined property Fintecture\\PisClient::\$[a-zA-Z0-9]+#'
+        - '#Access to an undefined property Fintecture\\AisClient::\$[a-zA-Z0-9]+#'
+        - '#Method Fintecture\\Api\\ApiResponse::__get\(\) has no return type specified.#'
+        - '#Method Fintecture\\Client::__get\(\) has no return type specified.#'
+    checkMissingIterableValueType: false

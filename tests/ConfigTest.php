@@ -6,7 +6,7 @@ use Fintecture\Config\Config;
 
 class ConfigTest extends BaseTest
 {
-    public function testValidateGoodConfig()
+    public function testValidateGoodConfig(): void
     {
         $config = [
             'appId' => 'test',
@@ -18,7 +18,7 @@ class ConfigTest extends BaseTest
         $this->assertTrue($config->validate());
     }
 
-    public function testValidateBadConfig()
+    public function testValidateBadConfig(): void
     {
         $this->expectException(\Exception::class);
 

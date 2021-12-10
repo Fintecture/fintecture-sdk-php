@@ -8,7 +8,7 @@ use Http\Message\MessageFactory;
 
 class FintectureTest extends BaseTest
 {
-    public function testGetConfig()
+    public function testGetConfig(): void
     {
         $currentClient = Fintecture::getCurrentClient();
         Fintecture::setCurrentClient('badclient');
@@ -16,7 +16,7 @@ class FintectureTest extends BaseTest
         Fintecture::setCurrentClient($currentClient);
     }
 
-    public function testGetAccessToken()
+    public function testGetAccessToken(): void
     {
         $currentClient = Fintecture::getCurrentClient();
         Fintecture::setCurrentClient('badclient');
@@ -24,7 +24,7 @@ class FintectureTest extends BaseTest
         Fintecture::setCurrentClient($currentClient);
     }
 
-    public function testGetMessageFactory()
+    public function testGetMessageFactory(): void
     {
         $currentClient = Fintecture::getCurrentClient();
         Fintecture::setCurrentClient('badclient');
@@ -32,7 +32,7 @@ class FintectureTest extends BaseTest
         Fintecture::setCurrentClient($currentClient);
     }
 
-    public function testGetHttpClient()
+    public function testGetHttpClient(): void
     {
         $currentClient = Fintecture::getCurrentClient();
         Fintecture::setCurrentClient('badclient');

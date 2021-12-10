@@ -104,7 +104,7 @@ class Header
         }
         $signingString .= 'x-request-id: ' . $data['requestId'];
         if (!openssl_sign($signingString, $signature, $data['privateKey'], OPENSSL_ALGO_SHA256)) {
-            throw new \Exception('Signature can\'t be generated');
+            throw new \Exception('Signature can\'t be generated.');
         }
         return self::generateFullSignature($data, $signature);
     }

@@ -81,7 +81,7 @@ class ApiFactory
      *
      * @throws \Exception if method is not defined
      */
-    public function __get(string $name)
+    public function __get(string $name): Api
     {
         $apiClass = $this->getApiClass($name);
         if (null !== $apiClass) {

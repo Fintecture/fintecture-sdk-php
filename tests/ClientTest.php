@@ -7,10 +7,11 @@ use Fintecture\Fintecture;
 use Fintecture\PisClient;
 use Http\Mock\Client as MockClient;
 use PHPUnit\Framework\Error\Error;
+use Psr\Http\Message\ResponseInterface;
 
 class ClientTest extends BaseTest
 {
-    public function testNotWellFormattedPrivateKey()
+    public function testNotWellFormattedPrivateKey(): void
     {
         $this->expectException(\Exception::class);
         $pisClient = new PisClient([
@@ -21,7 +22,7 @@ class ClientTest extends BaseTest
         ], new MockClient());
     }
 
-    public function testEncryptedPrivateKey()
+    public function testEncryptedPrivateKey(): void
     {
         $pisClient = new PisClient([
             'appId' => 'test',
@@ -34,45 +35,35 @@ class ClientTest extends BaseTest
         $this->assertTrue($pisClient instanceof PisClient);
     }
 
-    public function testInvalidGet()
+    public function testInvalidGet(): void
     {
         $this->expectException(Error::class);
         $this->aisClient->fake; /** @phpstan-ignore-line */
     }
 
-    /**
-     * @runInSeparateProcess
-     */
-    public function testRedirect()
-    {
-        $this->aisClient->redirect('https://fintecture.com');
-        $this->assertContains(
-            'Location: https://fintecture.com',
-            xdebug_get_headers()
-        );
-    }
-
-    public function testInvalidRedirect()
+    public function testInvalidRedirect(): void
     {
         $this->expectException(\Exception::class);
         $this->aisClient->redirect('badurl');
     }
 
-    public function testGetEncryptedPrivateKey()
+    public function testGetEncryptedPrivateKey(): void
     {
         $this->assertTrue(gettype($this->pisClient->getEncryptedPrivateKey()) === 'string');
     }
 
-    public function testGetFinalPrivateKey()
+    public function testGetFinalPrivateKey(): void
     {
         $this->assertTrue(gettype($this->pisClient->getFinalPrivateKey()) === 'string');
     }
 
-    public function testSetAccessToken()
+    public function testSetAccessToken(): void
     {
         $token = Fintecture::getAccessToken();
 
-        $newToken = new ApiResponse([], (object) ['access_token' => 'token']);
+        /** @var ResponseInterface $response */
+        $response = $this->createMock('Psr\Http\Message\ResponseInterface');
+        $newToken = new ApiResponse($response, (object) ['access_token' => 'token']);
         $this->aisClient->setAccessToken($newToken);
         $this->assertTrue(Fintecture::getAccessToken() === $newToken);
     }

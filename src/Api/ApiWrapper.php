@@ -54,7 +54,7 @@ class ApiWrapper
                 $this->messageFactory->createRequest('GET', $this->getFinalURL($endpoint), $headers)
             );
         } catch (\Exception $e) {
-            throw new \Exception('Can\'t handle HTTP request');
+            throw new \Exception('Can\'t handle HTTP request.');
         }
 
         $result = json_decode($response->getBody()->getContents());
@@ -100,7 +100,7 @@ class ApiWrapper
                 $this->messageFactory->createRequest('POST', $this->getFinalURL($endpoint), $headers, $body)
             );
         } catch (\Exception $e) {
-            throw new \Exception('Can\'t handle HTTP request');
+            throw new \Exception('Can\'t handle HTTP request.');
         }
 
         $result = json_decode($response->getBody()->getContents());
@@ -146,14 +146,14 @@ class ApiWrapper
                 $this->messageFactory->createRequest('DELETE', $this->getFinalURL($endpoint), $headers, $body)
             );
         } catch (\Exception $e) {
-            throw new \Exception('Can\'t handle HTTP request');
+            throw new \Exception('Can\'t handle HTTP request.');
         }
 
         $result = json_decode($response->getBody()->getContents());
         return new ApiResponse($response, $result);
     }
 
-    private function getFinalURL($endpoint): string
+    private function getFinalURL(string $endpoint): string
     {
         if (substr($endpoint, 0, 4) === 'http') {
             $url = $endpoint;

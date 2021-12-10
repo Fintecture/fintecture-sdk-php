@@ -50,6 +50,7 @@ function webhook()
     $signature = stripslashes($_SERVER['HTTP_SIGNATURE']);
 
     // Verify these vars with the SDK
+    // Warning: don't forget to instantiate a client before this call otherwise it won't work
     $validSignature = \Fintecture\Util\Validation::validSignature($body, $digest, $signature);
 
     if ($validSignature) {

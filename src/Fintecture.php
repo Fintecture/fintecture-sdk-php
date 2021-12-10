@@ -13,7 +13,7 @@ use Http\Message\MessageFactory;
 final class Fintecture
 {
     // SDK Version
-    public const VERSION = '2.0.8';
+    public const VERSION = '2.0.9';
 
     // API URLs
 
@@ -71,7 +71,7 @@ final class Fintecture
      *
      * @param string $currentClient Current client identifier
      */
-    public static function setCurrentClient(string $currentClient)
+    public static function setCurrentClient(string $currentClient): void
     {
         self::$currentClient = $currentClient;
     }
@@ -114,7 +114,7 @@ final class Fintecture
      *
      * @param HttpClient $httpClient Current HTTP client
      */
-    public static function setHttpClient(?HttpClient $httpClient)
+    public static function setHttpClient(?HttpClient $httpClient): void
     {
         if (!self::$httpClients) {
             self::$httpClients = [];
@@ -138,7 +138,7 @@ final class Fintecture
     /**
      * Set current Message Factory.
      */
-    public static function setMessageFactory()
+    public static function setMessageFactory(): void
     {
         if (!self::$messageFactories) {
             self::$messageFactories = [];
@@ -183,7 +183,7 @@ final class Fintecture
      *
      * @param array $config current Config
      */
-    public static function setConfig(array $config)
+    public static function setConfig(array $config): void
     {
         if (!self::$configs) {
             self::$configs = [];
@@ -210,7 +210,7 @@ final class Fintecture
      *
      * @param ApiResponse $accessToken current Access Token
      */
-    public static function setAccessToken(ApiResponse $accessToken)
+    public static function setAccessToken(ApiResponse $accessToken): void
     {
         self::$accessTokens[self::getCurrentClient()] = $accessToken;
     }

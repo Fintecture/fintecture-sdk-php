@@ -6,14 +6,16 @@ use Fintecture\Util\EncryptionManager;
 use Fintecture\Util\PemManager;
 use org\bovigo\vfs\vfsStream;
 use PHPUnit\Framework\Error\Error;
-use PHPUnit\Framework\Error\Notice;
 
 class EncryptionTest extends BaseTest
 {
+    /** @var EncryptionManager $encryptionManager */
     private $encryptionManager;
+
+    /** @var PemManager $pemManager */
     private $pemManager;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -24,7 +26,7 @@ class EncryptionTest extends BaseTest
         $this->pemManager = new PemManager($this->encryptionManager);
     }
 
-    public function testGenerateEncryptionKey()
+    public function testGenerateEncryptionKey(): void
     {
         // Generate encryption key
         $encryptionManager = new EncryptionManager(vfsStream::url('encryption-keys'));
@@ -38,7 +40,7 @@ class EncryptionTest extends BaseTest
         $this->assertTrue($encryptionManager->initEncryptionKey());
     }
 
-    public function testInvalidDirectory()
+    public function testInvalidDirectory(): void
     {
         // Encryption Manager without encryption key and with not existing folder
         $this->expectException(Error::class);
@@ -46,24 +48,23 @@ class EncryptionTest extends BaseTest
         $encryptionManager->initEncryptionKey();
     }
 
-    public function testReadingPrivateKey()
+    public function testReadingPrivateKey(): void
     {
         $this->assertEquals($this->privateKey, $this->pemManager->readPrivateKey($this->privateKey));
     }
 
-    public function testReadingPrivateKeyFromFile()
+    public function testReadingPrivateKeyFromFile(): void
     {
         $this->assertEquals($this->privateKey, $this->pemManager->readPrivateKey($this->privateKeyPath));
     }
 
-    public function testFormattingPrivateKey()
+    public function testFormattingPrivateKey(): void
     {
-        // $this->expectException(Notice::class);
         $pemResults = $this->pemManager->formatPrivateKey($this->privateKey); // will be encrypted
         $this->assertTrue($pemResults['encrypted']);
     }
 
-    public function testFormattingEncryptedPrivateKey()
+    public function testFormattingEncryptedPrivateKey(): void
     {
         $pemResults = $this->pemManager->formatPrivateKey($this->encryptedPrivateKey); // will be decrypted
         $this->assertEquals($this->privateKey, $pemResults['privateKey']);
