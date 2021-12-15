@@ -29,15 +29,10 @@ class ApiResponse
      */
     private function checkResult($response): void
     {
-        // Check JSON
-        if (null === $this->result) {
-            $this->setError("Response content is not valid json: \n\n{$response->getBody()->getContents()}");
-            return;
-        }
-
         // Check status and errors
-        if (isset($this->result->status) && '200' !== $this->result->status) {
-            $message = 'Error';
+        $statusCode = $response->getStatusCode();
+        if (!in_array($statusCode, [200, 204])) {
+            $message = 'Error - Status code' . $statusCode;
             if (isset($this->result->errors)) {
                 foreach ($this->result->errors as $error) {
                     if (isset($error->message)) {
@@ -52,7 +47,7 @@ class ApiResponse
             $this->setError($message);
             return;
         }
-        $this->setError();
+        $this->setError(); // no error
     }
 
     /**
