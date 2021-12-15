@@ -9,7 +9,7 @@ class TelemetryTest extends BaseTest
 {
     public function testLogAction(): void
     {
-        $this->assertFalse(Telemetry::logAction('test', ['additionalConfig' => 'test']));
+        $this->assertTrue(Telemetry::logAction('test', ['additionalConfig' => 'test']));
 
         // Disable telemetry
         Fintecture::getConfig()->setEnabledTelemetry(false);
@@ -21,7 +21,7 @@ class TelemetryTest extends BaseTest
 
     public function testLogMetric(): void
     {
-        $this->assertFalse(Telemetry::logMetric('test'));
+        $this->assertTrue(Telemetry::logMetric('test'));
 
         // Disable telemetry
         Fintecture::getConfig()->setEnabledTelemetry(false);

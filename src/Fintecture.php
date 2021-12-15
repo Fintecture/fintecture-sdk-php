@@ -13,7 +13,7 @@ use Http\Message\MessageFactory;
 final class Fintecture
 {
     // SDK Version
-    public const VERSION = '2.0.9';
+    public const VERSION = '2.0.10';
 
     // API URLs
 
