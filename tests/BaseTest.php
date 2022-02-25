@@ -7,6 +7,8 @@ use Fintecture\Api\ApiResponse;
 use Fintecture\Api\ApiWrapper;
 use Fintecture\Fintecture;
 use Fintecture\PisClient;
+use Http\Discovery\HttpClientDiscovery;
+use Http\Discovery\Strategy\MockClientStrategy;
 use Http\Mock\Client as MockClient;
 use org\bovigo\vfs\vfsStream;
 use PHPUnit\Framework\TestCase as PHPUnitTestCase;
@@ -74,6 +76,8 @@ abstract class BaseTest extends PHPUnitTestCase
         /** @var ResponseInterface $response */
         $response = $this->createMock('Psr\Http\Message\ResponseInterface');
         $newToken = new ApiResponse($response, (object) ['access_token' => 'token']);
+
+        HttpClientDiscovery::prependStrategy(MockClientStrategy::class);
 
         $this->aisClient = new AisClient([
             'appId' => 'test',

@@ -53,7 +53,8 @@ abstract class Client
 
         // Last initializations
         Fintecture::setHttpClient($httpClient);
-        Fintecture::setMessageFactory();
+        Fintecture::setRequestFactory();
+        Fintecture::setStreamFactory();
         Fintecture::setApiWrapper();
     }
 
