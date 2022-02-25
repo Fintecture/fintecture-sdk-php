@@ -12,13 +12,25 @@ This library is a PHP Client for the Fintecture API.
 
 ## Quick install
 
-Via [Composer](https://getcomposer.org), with our packagist package [fintecture/fintecture-sdk-php](https://packagist.org/packages/fintecture/fintecture-sdk-php).
+Via [Composer](https://getcomposer.org), with our Packagist package [fintecture/fintecture-sdk-php](https://packagist.org/packages/fintecture/fintecture-sdk-php).
 
-This command will get you up and running quickly with a Guzzle HTTP client.
+### For PHP > 7.1
+
+This command will get you up and running quickly with a Guzzle HTTP client (v7).
 
 ```bash
-composer require fintecture/fintecture-sdk-php guzzlehttp/guzzle http-interop/http-factory-guzzle
+composer require fintecture/fintecture-sdk-php guzzlehttp/guzzle
 ```
+
+### For PHP 7.1
+
+This command will get you up and running quickly with a Guzzle HTTP client (v6).
+
+```bash
+composer require fintecture/fintecture-sdk-php guzzlehttp/guzzle php-http/guzzle6-adapter http-interop/http-factory-guzzle
+```
+
+The Guzzle client will automatically be found with the help of `php-http/discovery` package. If you prefer to specify a custom HTTP client to use, please read the [Advanced usage](#advanced-usage) section.
 
 ## Getting started
 
@@ -89,7 +101,7 @@ Some examples (including webhook handling) are available in the [*examples* fold
 We are decoupled from any HTTP messaging client with help by [HTTPlug](https://httplug.io).
 A list of community provided clients is found here: https://packagist.org/providers/php-http/client-implementation
 
-### Using a different http client
+### Using a different HTTP client
 
 ```bash
 composer require fintecture/fintecture-sdk-php symfony/http-client nyholm/psr7
