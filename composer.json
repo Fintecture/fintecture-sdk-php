@@ -22,16 +22,20 @@
         "ext-json": "*",
         "ext-mbstring": "*",
         "ext-openssl": "*",
-        "php-http/curl-client": "*",
-        "http-interop/http-factory-guzzle": "*",
-        "php-http/discovery": "*"
+        "psr/http-client-implementation": "*",
+        "psr/http-factory": "*",
+        "psr/http-client": "*",
+        "php-http/discovery": "*",
+        "php-http/message": "*"
     },
     "require-dev": {
         "ext-dom": "*",
         "ext-zip": "*",
         "phpunit/phpunit": "^7|^8|^9",
         "phpstan/phpstan": "^1",
-        "php-http/mock-client": "^1.4",
+        "php-http/mock-client": "*",
+        "guzzlehttp/psr7": "*",
+        "http-interop/http-factory-guzzle": "*",
         "mikey179/vfsstream": "^1.6"
     },
     "autoload": {

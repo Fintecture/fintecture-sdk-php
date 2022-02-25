@@ -5,15 +5,16 @@ namespace Fintecture;
 use Fintecture\Api\ApiResponse;
 use Fintecture\Api\ApiWrapper;
 use Fintecture\Config\Config;
-use Http\Client\HttpClient;
-use Http\Discovery\HttpClientDiscovery;
-use Http\Discovery\MessageFactoryDiscovery;
-use Http\Message\MessageFactory;
+use Http\Discovery\Psr17FactoryDiscovery;
+use Http\Discovery\Psr18ClientDiscovery;
+use Psr\Http\Client\ClientInterface;
+use Psr\Http\Message\RequestFactoryInterface;
+use Psr\Http\Message\StreamFactoryInterface;
 
 final class Fintecture
 {
     // SDK Version
-    public const VERSION = '2.0.11';
+    public const VERSION = '2.1.0';
 
     // API URLs
 
@@ -32,14 +33,19 @@ final class Fintecture
     public static $currentClient;
 
     /**
-     * @var array<HttpClient>
+     * @var array<ClientInterface>
      */
     private static $httpClients;
 
     /**
-     * @var array<MessageFactory>
+     * @var array<RequestFactoryInterface>
      */
-    private static $messageFactories;
+    private static $requestFactories;
+
+    /**
+     * @var array<StreamFactoryInterface>
+     */
+    private static $streamFactories;
 
     /**
      * @var ApiWrapper
@@ -79,29 +85,39 @@ final class Fintecture
     /**
      * Get default HTTP client.
      *
-     * @return HttpClient Default HTTP client
+     * @return ClientInterface Default HTTP client
      */
-    public static function getDefaultHttpClient(): ?HttpClient
+    public static function getDefaultHttpClient(): ?ClientInterface
     {
-        return HttpClientDiscovery::find();
+        return Psr18ClientDiscovery::find();
     }
 
     /**
-     * Get default Message Factory.
+     * Get default Request Factory.
      *
-     * @return MessageFactory Default Message Factory
+     * @return RequestFactoryInterface Default Request Factory
      */
-    public static function getDefaultMessageFactory(): ?MessageFactory
+    public static function getDefaultRequestFactory(): ?RequestFactoryInterface
     {
-        return MessageFactoryDiscovery::find();
+        return Psr17FactoryDiscovery::findRequestFactory();
+    }
+
+    /**
+     * Get default Request Factory.
+     *
+     * @return StreamFactoryInterface Default Stream Factory
+     */
+    public static function getDefaultStreamFactory(): ?StreamFactoryInterface
+    {
+        return Psr17FactoryDiscovery::findStreamFactory();
     }
 
     /**
      * Get current HTTP client.
      *
-     * @return HttpClient Current HTTP client
+     * @return ClientInterface Current HTTP client
      */
-    public static function getHttpClient(): ?HttpClient
+    public static function getHttpClient(): ?ClientInterface
     {
         if (!empty(self::getCurrentClient()) && isset(self::$httpClients[self::getCurrentClient()])) {
             return self::$httpClients[self::getCurrentClient()];
@@ -112,9 +128,9 @@ final class Fintecture
     /**
      * Set current HTTP client.
      *
-     * @param HttpClient $httpClient Current HTTP client
+     * @param ClientInterface $httpClient Current HTTP client
      */
-    public static function setHttpClient(?HttpClient $httpClient): void
+    public static function setHttpClient(?ClientInterface $httpClient): void
     {
         if (!self::$httpClients) {
             self::$httpClients = [];
@@ -123,27 +139,51 @@ final class Fintecture
     }
 
     /**
-     * Get current Message Factory.
+     * Get current Request Factory.
      *
-     * @return MessageFactory Current Message Factory
+     * @return RequestFactoryInterface Current Request Factory
      */
-    public static function getMessageFactory(): ?MessageFactory
+    public static function getRequestFactory(): ?RequestFactoryInterface
     {
-        if (!empty(self::getCurrentClient()) && isset(self::$messageFactories[self::getCurrentClient()])) {
-            return self::$messageFactories[self::getCurrentClient()];
+        if (!empty(self::getCurrentClient()) && isset(self::$requestFactories[self::getCurrentClient()])) {
+            return self::$requestFactories[self::getCurrentClient()];
         }
-        return self::getDefaultMessageFactory();
+        return self::getDefaultRequestFactory();
     }
 
     /**
-     * Set current Message Factory.
+     * Set current Request Factory.
      */
-    public static function setMessageFactory(): void
+    public static function setRequestFactory(): void
     {
-        if (!self::$messageFactories) {
-            self::$messageFactories = [];
+        if (!self::$requestFactories) {
+            self::$requestFactories = [];
         }
-        self::$messageFactories[self::getCurrentClient()] = self::getDefaultMessageFactory();
+        self::$requestFactories[self::getCurrentClient()] = self::getDefaultRequestFactory();
+    }
+
+    /**
+     * Get current Stream Factory.
+     *
+     * @return StreamFactoryInterface Current Stream Factory
+     */
+    public static function getStreamFactory(): ?StreamFactoryInterface
+    {
+        if (!empty(self::getCurrentClient()) && isset(self::$streamFactories[self::getCurrentClient()])) {
+            return self::$streamFactories[self::getCurrentClient()];
+        }
+        return self::getDefaultStreamFactory();
+    }
+
+    /**
+     * Set current Stream Factory.
+     */
+    public static function setStreamFactory(): void
+    {
+        if (!self::$streamFactories) {
+            self::$streamFactories = [];
+        }
+        self::$streamFactories[self::getCurrentClient()] = self::getDefaultStreamFactory();
     }
 
     /**

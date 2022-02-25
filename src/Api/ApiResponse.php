@@ -32,7 +32,7 @@ class ApiResponse
         // Check status and errors
         $statusCode = $response->getStatusCode();
         if (!in_array($statusCode, [200, 204])) {
-            $message = 'Error - Status code' . $statusCode;
+            $message = 'Error - Status code ' . $statusCode;
             if (isset($this->result->errors)) {
                 foreach ($this->result->errors as $error) {
                     if (isset($error->message)) {
@@ -47,7 +47,7 @@ class ApiResponse
             $this->setError($message);
             return;
         }
-        $this->setError(); // no error
+        $this->setError();
     }
 
     /**

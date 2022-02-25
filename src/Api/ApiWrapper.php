@@ -6,25 +6,33 @@ use Fintecture\Config\Endpoint;
 use Fintecture\Fintecture;
 use Fintecture\Util\Crypto;
 use Fintecture\Util\Header;
-use Http\Client\HttpClient;
-use Http\Message\MessageFactory;
+use Psr\Http\Client\ClientInterface;
+use Psr\Http\Message\RequestFactoryInterface;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\StreamFactoryInterface;
 
 class ApiWrapper
 {
     /**
-     * @var HttpClient
+     * @var ClientInterface
      */
     private $httpClient;
 
     /**
-     * @var MessageFactory
+     * @var RequestFactoryInterface
      */
-    private $messageFactory;
+    private $requestFactory;
+
+    /**
+     * @var StreamFactoryInterface
+     */
+    private $streamFactory;
 
     public function __construct()
     {
         $this->httpClient = Fintecture::getHttpClient();
-        $this->messageFactory = Fintecture::getMessageFactory();
+        $this->requestFactory = Fintecture::getRequestFactory();
+        $this->streamFactory = Fintecture::getStreamFactory();
     }
 
     /**
@@ -50,9 +58,12 @@ class ApiWrapper
         }
 
         try {
-            $response = $this->httpClient->sendRequest(
-                $this->messageFactory->createRequest('GET', $this->getFinalURL($endpoint), $headers)
-            );
+            $request = $this->requestFactory->createRequest('GET', $this->getFinalURL($endpoint));
+            if (!empty($headers)) {
+                $request = $this->addHeadersToRequest($request, $headers);
+            }
+
+            $response = $this->httpClient->sendRequest($request);
         } catch (\Exception $e) {
             throw new \Exception('Can\'t handle HTTP request.');
         }
@@ -87,18 +98,18 @@ class ApiWrapper
             }
         }
 
-        if (!empty($body) && is_array($body)) {
-            if ($json) {
-                $body = Crypto::encodeToJson($body);
-            } else {
-                $body = http_build_query($body);
-            }
-        }
-
         try {
-            $response = $this->httpClient->sendRequest(
-                $this->messageFactory->createRequest('POST', $this->getFinalURL($endpoint), $headers, $body)
-            );
+            $request = $this->requestFactory->createRequest('POST', $this->getFinalURL($endpoint));
+            if (!empty($headers)) {
+                $request = $this->addHeadersToRequest($request, $headers);
+            }
+
+            if (!empty($body) && is_array($body)) {
+                $body = $json ? Crypto::encodeToJson($body) : http_build_query($body);
+                $request = $this->addBodyToRequest($request, $body);
+            }
+
+            $response = $this->httpClient->sendRequest($request);
         } catch (\Exception $e) {
             throw new \Exception('Can\'t handle HTTP request.');
         }
@@ -133,24 +144,41 @@ class ApiWrapper
             }
         }
 
-        if ($body && is_array($body)) {
-            if ($json) {
-                $body = Crypto::encodeToJson($body);
-            } else {
-                $body = http_build_query($body);
-            }
-        }
-
         try {
-            $response = $this->httpClient->sendRequest(
-                $this->messageFactory->createRequest('DELETE', $this->getFinalURL($endpoint), $headers, $body)
-            );
+            $request = $this->requestFactory->createRequest('DELETE', $this->getFinalURL($endpoint));
+            if (!empty($headers)) {
+                $request = $this->addHeadersToRequest($request, $headers);
+            }
+
+            if (!empty($body) && is_array($body)) {
+                $body = $json ? Crypto::encodeToJson($body) : http_build_query($body);
+                $request = $this->addBodyToRequest($request, $body);
+            }
+
+            $response = $this->httpClient->sendRequest($request);
         } catch (\Exception $e) {
             throw new \Exception('Can\'t handle HTTP request.');
         }
 
         $result = json_decode($response->getBody()->getContents());
         return new ApiResponse($response, $result);
+    }
+
+    private function addHeadersToRequest(RequestInterface $request, array $headers): RequestInterface
+    {
+        foreach ($headers as $headerKey => $headerValue) {
+            $request = $request->withHeader($headerKey, $headerValue);
+        }
+
+        return $request;
+    }
+
+    private function addBodyToRequest(RequestInterface $request, string $body): RequestInterface
+    {
+        $stream = $this->streamFactory->createStream($body);
+        $request = $request->withBody($stream);
+
+        return $request;
     }
 
     private function getFinalURL(string $endpoint): string
