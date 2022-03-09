@@ -111,9 +111,9 @@ To set up the Fintecture client with this HTTP client
 
 ```php
 use Fintecture\PisClient;
-use Symfony\Component\HttpClient\HttplugClient;
+use Symfony\Component\HttpClient\Psr18Client;
 
-$pisClient = new PisClient([$config], new HttplugClient());
+$pisClient = new PisClient([$config], new Psr18Client());
 ```
 
 ## Available methods
