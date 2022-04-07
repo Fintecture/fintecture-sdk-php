@@ -17,7 +17,7 @@
         }
     ],
     "require": {
-        "php": ">=7.1",
+        "php": ">=7.2",
         "ext-curl": "*",
         "ext-json": "*",
         "ext-mbstring": "*",
@@ -31,11 +31,10 @@
     "require-dev": {
         "ext-dom": "*",
         "ext-zip": "*",
-        "phpunit/phpunit": "^7|^8|^9",
+        "phpunit/phpunit": "^8|^9",
         "phpstan/phpstan": "^1",
         "php-http/mock-client": "*",
-        "guzzlehttp/psr7": "*",
-        "http-interop/http-factory-guzzle": "*",
+        "guzzlehttp/psr7": "^2",
         "mikey179/vfsstream": "^1.6"
     },
     "autoload": {
