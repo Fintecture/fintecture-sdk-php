@@ -6,7 +6,6 @@ use Fintecture\Api\ApiResponse;
 use Fintecture\Fintecture;
 use Fintecture\PisClient;
 use Http\Mock\Client as MockClient;
-use PHPUnit\Framework\Error\Error;
 use Psr\Http\Message\ResponseInterface;
 
 class ClientTest extends BaseTest
@@ -37,7 +36,7 @@ class ClientTest extends BaseTest
 
     public function testInvalidGet(): void
     {
-        $this->expectException(Error::class);
+        $this->expectError();
         $this->aisClient->fake; /** @phpstan-ignore-line */
     }
 

@@ -5,7 +5,6 @@ namespace Fintecture\Tests;
 use Fintecture\Util\EncryptionManager;
 use Fintecture\Util\PemManager;
 use org\bovigo\vfs\vfsStream;
-use PHPUnit\Framework\Error\Error;
 
 class EncryptionTest extends BaseTest
 {
@@ -43,7 +42,7 @@ class EncryptionTest extends BaseTest
     public function testInvalidDirectory(): void
     {
         // Encryption Manager without encryption key and with not existing folder
-        $this->expectException(Error::class);
+        $this->expectError();
         $encryptionManager = new EncryptionManager(vfsStream::url('bad-dir'));
         $encryptionManager->initEncryptionKey();
     }
