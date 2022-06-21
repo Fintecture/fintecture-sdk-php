@@ -31,7 +31,7 @@ class ApiResponse
     {
         // Check status and errors
         $statusCode = $response->getStatusCode();
-        if (!in_array($statusCode, [200, 204])) {
+        if ($statusCode < 200 || $statusCode > 299) {
             $message = 'Error - Status code ' . $statusCode;
             if (isset($this->result->errors)) {
                 foreach ($this->result->errors as $error) {
