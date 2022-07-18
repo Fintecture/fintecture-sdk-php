@@ -6,7 +6,7 @@ use Fintecture\Api\ApiFactory;
 use Fintecture\Api\ApiResponse;
 use Fintecture\Util\EncryptionManager;
 use Fintecture\Util\PemManager;
-use Http\Client\HttpClient;
+use Psr\Http\Client\ClientInterface;
 
 abstract class Client
 {
@@ -32,9 +32,9 @@ abstract class Client
 
     /**
      * @param array $config The config of the user app to create the main client.
-     * @param ?HttpClient $httpClient Client to do HTTP requests, if not set, auto discovery will be used to find a HTTP client.
+     * @param ?ClientInterface $httpClient Client to do HTTP requests, if not set, auto discovery will be used to find a HTTP client.
      */
-    public function __construct(array $config, HttpClient $httpClient = null)
+    public function __construct(array $config, ClientInterface $httpClient = null)
     {
         // Set a unique identifier for the current instance
         $this->identifier .= '-' . uniqid();
