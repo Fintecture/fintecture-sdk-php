@@ -28,6 +28,9 @@ class PisTest extends BaseTest
     {
         $refund = $this->pisClient->refund->generate(['data']);
         $this->assertTrue($refund instanceof ApiResponse);
+
+        $refundWithState = $this->pisClient->refund->generate(['data'], 'state');
+        $this->assertTrue($refundWithState instanceof ApiResponse);
     }
 
     public function testRequestToPay(): void
