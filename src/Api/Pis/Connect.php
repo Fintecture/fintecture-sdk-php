@@ -21,12 +21,14 @@ class Connect extends Api
         array $data,
         string $state,
         string $redirectUri = null,
-        string $originUri = null
+        string $originUri = null,
+        bool $withVirtualBeneficiary = null
     ): ApiResponse {
         $params = http_build_query([
             'state' => $state,
             'redirect_uri' => $redirectUri,
-            'origin_uri' => $originUri
+            'origin_uri' => $originUri,
+            'with_virtualbeneficiary' => $withVirtualBeneficiary
         ]);
         $path = '/pis/v2/connect?' . $params;
         return $this->apiWrapper->post($path, $data);
