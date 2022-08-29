@@ -4,6 +4,7 @@ namespace Fintecture\Api\Pis;
 
 use Fintecture\Api\Api;
 use Fintecture\Api\ApiResponse;
+use Fintecture\Util\Header;
 
 class Connect extends Api
 {
@@ -14,6 +15,14 @@ class Connect extends Api
      * @param string $state State.
      * @param string $redirectUri Redirect URI.
      * @param string $originUri Origin URI.
+     * @param bool $withVirtualBeneficiary With virtual beneficiary.
+     * @param array $additionalHeaders additionalHeaders.
+     *     $additionalHeaders = [
+     *         'x-country' => (string)
+     *         'x-language' => (string)
+     *         'x-provider' => (string)
+     *         'x-psu-type' => (string)
+     *     ]
      *
      * @return ApiResponse Generated connect.
      */
@@ -22,7 +31,8 @@ class Connect extends Api
         string $state,
         string $redirectUri = null,
         string $originUri = null,
-        bool $withVirtualBeneficiary = null
+        bool $withVirtualBeneficiary = null,
+        array $additionalHeaders = []
     ): ApiResponse {
         $params = http_build_query([
             'state' => $state,
@@ -31,6 +41,12 @@ class Connect extends Api
             'with_virtualbeneficiary' => $withVirtualBeneficiary
         ]);
         $path = '/pis/v2/connect?' . $params;
-        return $this->apiWrapper->post($path, $data);
+
+        $headers = Header::generate('POST', $path, $data);
+        if (!empty($additionalHeaders)) {
+            $headers = array_merge($headers, $additionalHeaders);
+        }
+
+        return $this->apiWrapper->post($path, $data, true, $headers);
     }
 }
