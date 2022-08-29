@@ -12,6 +12,12 @@ class PisTest extends BaseTest
         $this->assertTrue($connect instanceof ApiResponse);
     }
 
+    public function testPisConnectWithAdditionalHeaders(): void
+    {
+        $connect = $this->pisClient->connect->generate(['data'], 'state', 'redirectUri', 'originUri', null, ['x-psu-type' => 'corporate']);
+        $this->assertTrue($connect instanceof ApiResponse);
+    }
+
     public function testPisInitiate(): void
     {
         $initiate = $this->pisClient->initiate->generate(['data'], 'state', 'redirectUri', 'originUri');
