@@ -139,6 +139,8 @@ These methods follow our [API structure](https://docs.fintecture.com/v2).
     - get
 - refund
     - generate
+- requestForPayout
+    - generate
 - requestToPay
     - generate
 - settlement

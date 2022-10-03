@@ -13,6 +13,7 @@ use Fintecture\Api\Pis\Connect as PisConnect;
 use Fintecture\Api\Pis\Initiate;
 use Fintecture\Api\Pis\Payment;
 use Fintecture\Api\Pis\Refund;
+use Fintecture\Api\Pis\RequestForPayout;
 use Fintecture\Api\Pis\RequestToPay;
 use Fintecture\Api\Pis\Settlement;
 use Fintecture\Api\Resources\Application;
@@ -62,6 +63,7 @@ class ApiFactory
         'payment' => Payment::class,
         'refund' => Refund::class,
         'requestToPay' => RequestToPay::class,
+        'requestForPayout' => RequestForPayout::class,
         'settlement' => Settlement::class
     ];
 
