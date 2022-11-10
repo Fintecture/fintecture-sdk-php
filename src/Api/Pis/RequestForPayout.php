@@ -15,6 +15,7 @@ class RequestForPayout extends Api
      * @param string $redirectUri Redirect URI.
      * @param string $state State.
      * @param string $xCountry xCountry.
+     * @param string $xLanguage xLanguage.
      *
      * @return ApiResponse Generated request-for-payout.
      */
@@ -22,7 +23,8 @@ class RequestForPayout extends Api
         array $data,
         string $redirectUri = null,
         string $state = null,
-        string $xCountry = null
+        string $xCountry = null,
+        string $xLanguage = null
     ): ApiResponse {
         $params = http_build_query([
             'redirect_uri' => $redirectUri,
@@ -35,6 +37,7 @@ class RequestForPayout extends Api
 
         $headers = Header::generate('POST', $path, $data);
         $headers['x-country'] = $xCountry;
+        $headers['x-language'] = $xLanguage;
 
         return $this->apiWrapper->post($path, $data, true, $headers);
     }

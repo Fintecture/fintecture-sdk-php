@@ -41,7 +41,7 @@ class PisTest extends BaseTest
 
     public function testRequestForPayout(): void
     {
-        $requestForPayout = $this->pisClient->requestForPayout->generate(['data'], 'redirectUri', 'state', 'fr');
+        $requestForPayout = $this->pisClient->requestForPayout->generate(['data'], 'redirectUri', 'state', 'fr', 'fr');
         $this->assertTrue($requestForPayout instanceof ApiResponse);
     }
 
