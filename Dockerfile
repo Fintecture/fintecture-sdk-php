@@ -1,5 +1,5 @@
 # Dockerfile
-FROM php:7.4-fpm
+FROM php:8.1-fpm
 
 RUN apt-get update -y \
     && apt-get install -y --no-install-recommends \

@@ -5,6 +5,7 @@ namespace Fintecture;
 use Fintecture\Api\ApiResponse;
 use Fintecture\Api\ApiWrapper;
 use Fintecture\Config\Config;
+use Http\Discovery\Exception\NotFoundException;
 use Http\Discovery\Psr17FactoryDiscovery;
 use Http\Discovery\Psr18ClientDiscovery;
 use Psr\Http\Client\ClientInterface;
@@ -14,7 +15,7 @@ use Psr\Http\Message\StreamFactoryInterface;
 final class Fintecture
 {
     // SDK Version
-    public const VERSION = '2.3.1';
+    public const VERSION = '2.3.2';
 
     // API URLs
 
@@ -89,7 +90,12 @@ final class Fintecture
      */
     public static function getDefaultHttpClient(): ?ClientInterface
     {
-        return Psr18ClientDiscovery::find();
+        try {
+            return Psr18ClientDiscovery::find();
+        } catch (NotFoundException $e) {
+            \trigger_error($e->getMessage(), E_USER_WARNING);
+            return null;
+        }
     }
 
     /**
@@ -99,7 +105,12 @@ final class Fintecture
      */
     public static function getDefaultRequestFactory(): ?RequestFactoryInterface
     {
-        return Psr17FactoryDiscovery::findRequestFactory();
+        try {
+            return Psr17FactoryDiscovery::findRequestFactory();
+        } catch (NotFoundException $e) {
+            \trigger_error($e->getMessage(), E_USER_WARNING);
+            return null;
+        }
     }
 
     /**
@@ -109,7 +120,12 @@ final class Fintecture
      */
     public static function getDefaultStreamFactory(): ?StreamFactoryInterface
     {
-        return Psr17FactoryDiscovery::findStreamFactory();
+        try {
+            return Psr17FactoryDiscovery::findStreamFactory();
+        } catch (NotFoundException $e) {
+            \trigger_error($e->getMessage(), E_USER_WARNING);
+            return null;
+        }
     }
 
     /**

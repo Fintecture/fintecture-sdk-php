@@ -7,8 +7,6 @@ parameters:
         - examples
         - tools
         - vendor
-    earlyTerminatingFunctionCalls:
-        - trigger_error
     ignoreErrors:
         - '#Access to an undefined property Fintecture\\PisClient::\$[a-zA-Z0-9]+#'
         - '#Access to an undefined property Fintecture\\AisClient::\$[a-zA-Z0-9]+#'

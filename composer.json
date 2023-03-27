@@ -46,5 +46,10 @@
         "psr-4": {
             "Fintecture\\Tests\\": "tests/"
         }
+    },
+    "config": {
+        "allow-plugins": {
+            "php-http/discovery": true
+        }
     }
 }
