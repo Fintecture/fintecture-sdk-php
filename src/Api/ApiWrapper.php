@@ -65,7 +65,7 @@ class ApiWrapper
 
             $response = $this->httpClient->sendRequest($request);
         } catch (\Exception $e) {
-            throw new \Exception('Can\'t handle HTTP request.');
+            throw new \Exception("Can't handle HTTP request: " . $e->getMessage());
         }
 
         $result = json_decode($response->getBody()->getContents());
@@ -111,7 +111,7 @@ class ApiWrapper
 
             $response = $this->httpClient->sendRequest($request);
         } catch (\Exception $e) {
-            throw new \Exception('Can\'t handle HTTP request.');
+            throw new \Exception("Can't handle HTTP request: " . $e->getMessage());
         }
 
         $result = json_decode($response->getBody()->getContents());
@@ -157,7 +157,7 @@ class ApiWrapper
 
             $response = $this->httpClient->sendRequest($request);
         } catch (\Exception $e) {
-            throw new \Exception('Can\'t handle HTTP request.');
+            throw new \Exception("Can't handle HTTP request: " . $e->getMessage());
         }
 
         $result = json_decode($response->getBody()->getContents());

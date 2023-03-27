@@ -35,5 +35,9 @@ docker exec -it fintecture-sdk-php make analyse
 ### PHP CS Fixer (Coding Standards)
 
 ```bash
+docker exec -it fintecture-sdk-php make check
+```
+
+```bash
 docker exec -it fintecture-sdk-php make format
 ```
