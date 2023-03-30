@@ -15,4 +15,10 @@ class ApiWrapperTest extends BaseTest
         $response = $this->apiWrapper->post('test', ['test' => 'test'], true, ['test' => 'test']);
         $this->assertFalse($response->error);
     }
+
+    public function testPatch(): void
+    {
+        $response = $this->apiWrapper->patch('test', ['test' => 'test'], true, ['test' => 'test']);
+        $this->assertFalse($response->error);
+    }
 }

@@ -3,3 +3,5 @@ services:
     fintecture-sdk-php:
         container_name: 'fintecture-sdk-php' 
         build: .
+        volumes:
+            - './:/app'

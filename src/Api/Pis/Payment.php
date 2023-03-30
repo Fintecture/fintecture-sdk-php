@@ -23,4 +23,19 @@ class Payment extends Api
 
         return $this->apiWrapper->get($path);
     }
+
+    /**
+     * Update a specific payment.
+     *
+     * @param string $sessionId Session Id.
+     * @param array $data Payload.
+     *
+     * @return ApiResponse Payment.
+     */
+    public function update(string $sessionId, array $data): ApiResponse
+    {
+        $path = '/pis/v2/payments/' . $sessionId;
+
+        return $this->apiWrapper->patch($path, $data);
+    }
 }
