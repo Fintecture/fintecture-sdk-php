@@ -119,6 +119,52 @@ class ApiWrapper
     }
 
     /**
+     * PATCH query to the API.
+     *
+     * @param string $endpoint Endpoint
+     * @param mixed $body Body fields provided to the request
+     * @param bool $json Whether the body need to be JSON encoded or not
+     * @param array $headers Headers provided to the request
+     * @param int $authMethod Auth method: 0 => App Id, 1 => Token, 2 => Basic Auth
+     *
+     * @return ApiResponse $result response of the query
+     */
+    public function patch(
+        string $endpoint,
+        $body = null,
+        bool $json = true,
+        array $headers = null,
+        int $authMethod = 1
+    ): ApiResponse {
+        if (!$headers) {
+            try {
+                $headers = Header::generate('PATCH', $endpoint, $body, $authMethod);
+            } catch (\Exception $e) {
+                \trigger_error($e->getMessage(), E_USER_ERROR);
+            }
+        }
+
+        try {
+            $request = $this->requestFactory->createRequest('PATCH', $this->getFinalURL($endpoint));
+            if (!empty($headers)) {
+                $request = $this->addHeadersToRequest($request, $headers);
+            }
+
+            if (!empty($body) && is_array($body)) {
+                $body = $json ? Crypto::encodeToJson($body) : http_build_query($body);
+                $request = $this->addBodyToRequest($request, $body);
+            }
+
+            $response = $this->httpClient->sendRequest($request);
+        } catch (\Exception $e) {
+            throw new \Exception("Can't handle HTTP request: " . $e->getMessage());
+        }
+
+        $result = json_decode($response->getBody()->getContents());
+        return new ApiResponse($response, $result);
+    }
+
+    /**
      * DELETE query to the API.
      *
      * @param string $endpoint Endpoint

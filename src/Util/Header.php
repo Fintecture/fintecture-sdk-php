@@ -39,7 +39,7 @@ class Header
         $headers = ['Accept' => 'application/json']; // init headers
 
         // Build digest if needed
-        if ('POST' === $method && $authMethod !== 2) {
+        if (('POST' === $method || 'PATCH' === $method) && $authMethod !== 2) {
             $digest = 'SHA-256=' . Crypto::encodeToBase64($body, true);
             $headers['Digest'] = $digest;
             $headers['Content-Type'] = 'application/json';
