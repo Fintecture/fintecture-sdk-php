@@ -14,16 +14,19 @@ class RequestToPay extends Api
      * @param array $data Payload.
      * @param string $xLanguage x-language.
      * @param string $redirectUri Redirect URI.
+     * @param string $state State.
      *
      * @return ApiResponse Generated request-to-pay.
      */
     public function generate(
         array $data,
         string $xLanguage,
-        string $redirectUri = null
+        string $redirectUri = null,
+        string $state = null
     ): ApiResponse {
         $params = http_build_query([
-            'redirect_uri' => $redirectUri
+            'redirect_uri' => $redirectUri,
+            'state' => $state,
         ]);
         $path = '/pis/v2/request-to-pay';
         if ($params) {

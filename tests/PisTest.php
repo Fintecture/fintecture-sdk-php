@@ -44,13 +44,13 @@ class PisTest extends BaseTest
 
     public function testRequestForPayout(): void
     {
-        $requestForPayout = $this->pisClient->requestForPayout->generate(['data'], 'redirectUri', 'state', 'fr', 'fr');
+        $requestForPayout = $this->pisClient->requestForPayout->generate(['data'], 'https://test.fr', 'state', 'fr', 'fr');
         $this->assertTrue($requestForPayout instanceof ApiResponse);
     }
 
     public function testRequestToPay(): void
     {
-        $requestToPay = $this->pisClient->requestToPay->generate(['data'], 'redirectUri');
+        $requestToPay = $this->pisClient->requestToPay->generate(['data'], 'fr', 'https://test.fr', 'state');
         $this->assertTrue($requestToPay instanceof ApiResponse);
     }
 
