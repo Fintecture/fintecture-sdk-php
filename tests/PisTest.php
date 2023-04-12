@@ -26,7 +26,13 @@ class PisTest extends BaseTest
 
     public function testPisPayment(): void
     {
+        $payment = $this->pisClient->payment->get();
+        $this->assertTrue($payment instanceof ApiResponse);
+
         $payment = $this->pisClient->payment->get('sessionId');
+        $this->assertTrue($payment instanceof ApiResponse);
+
+        $payment = $this->pisClient->payment->get('sessionId', false, true);
         $this->assertTrue($payment instanceof ApiResponse);
 
         $payment = $this->pisClient->payment->update('sessionId', ['data']);
