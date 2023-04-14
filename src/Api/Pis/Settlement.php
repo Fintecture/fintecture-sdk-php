@@ -4,6 +4,7 @@ namespace Fintecture\Api\Pis;
 
 use Fintecture\Api\Api;
 use Fintecture\Api\ApiResponse;
+use Fintecture\Util\Http;
 
 class Settlement extends Api
 {
@@ -26,7 +27,7 @@ class Settlement extends Api
             $path .= '/' . $settlementId;
         }
         if (!empty($additionalParams)) {
-            $additionalParams = http_build_query($additionalParams);
+            $additionalParams = Http::buildHttpQuery($additionalParams);
             $path .= '?' . $additionalParams;
         }
         return $this->apiWrapper->get($path);

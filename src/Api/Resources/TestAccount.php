@@ -4,6 +4,7 @@ namespace Fintecture\Api\Resources;
 
 use Fintecture\Api\Api;
 use Fintecture\Api\ApiResponse;
+use Fintecture\Util\Http;
 
 class TestAccount extends Api
 {
@@ -21,7 +22,7 @@ class TestAccount extends Api
     {
         $path = 'res/v1/testaccounts';
         if (!empty($additionalParams)) {
-            $additionalParams = http_build_query($additionalParams);
+            $additionalParams = Http::buildHttpQuery($additionalParams);
             $path .= '?' . $additionalParams;
         }
 

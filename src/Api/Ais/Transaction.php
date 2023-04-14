@@ -4,6 +4,7 @@ namespace Fintecture\Api\Ais;
 
 use Fintecture\Api\Api;
 use Fintecture\Api\ApiResponse;
+use Fintecture\Util\Http;
 
 class Transaction extends Api
 {
@@ -27,7 +28,7 @@ class Transaction extends Api
     {
         $path = '/ais/v1/customer/' . $customerId . '/accounts/' . $accountId . '/transactions';
         if (!empty($additionalParams)) {
-            $additionalParams = http_build_query($additionalParams);
+            $additionalParams = Http::buildHttpQuery($additionalParams);
             $path .= '?' . $additionalParams;
         }
 

@@ -4,6 +4,7 @@ namespace Fintecture\Api\Ais;
 
 use Fintecture\Api\Api;
 use Fintecture\Api\ApiResponse;
+use Fintecture\Util\Http;
 
 class Connect extends Api
 {
@@ -18,7 +19,7 @@ class Connect extends Api
      */
     public function generate(string $redirectUri, string $state, string $scope = null): ApiResponse
     {
-        $params = http_build_query([
+        $params = Http::buildHttpQuery([
             'redirect_uri' => $redirectUri,
             'state' => $state,
             'scope' => $scope

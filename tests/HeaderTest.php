@@ -5,6 +5,7 @@ namespace Fintecture\Tests;
 use Fintecture\Api\ApiResponse;
 use Fintecture\Fintecture;
 use Fintecture\Util\Header;
+use Fintecture\Util\Http;
 use Psr\Http\Message\ResponseInterface;
 
 class HeaderTest extends BaseTest
@@ -21,7 +22,7 @@ class HeaderTest extends BaseTest
 
     public function testGenerateWithClientToken(): void
     {
-        $params = http_build_query([
+        $params = Http::buildHttpQuery([
             'state' => 'random-id',
             'redirect_uri' => 'https://localhost/'
         ]);
@@ -36,7 +37,7 @@ class HeaderTest extends BaseTest
 
     public function testGenerateWithAppID(): void
     {
-        $params = http_build_query([
+        $params = Http::buildHttpQuery([
             'state' => 'random-id',
             'redirect_uri' => 'https://localhost/'
         ]);
@@ -51,7 +52,7 @@ class HeaderTest extends BaseTest
 
     public function testGenerateWithClientTokenAndBody(): void
     {
-        $params = http_build_query([
+        $params = Http::buildHttpQuery([
             'state' => 'random-id',
             'redirect_uri' => 'https://localhost/'
         ]);
@@ -66,7 +67,7 @@ class HeaderTest extends BaseTest
 
     public function testGenerateWithAppIDAndBody(): void
     {
-        $params = http_build_query([
+        $params = Http::buildHttpQuery([
             'state' => 'random-id',
             'redirect_uri' => 'https://localhost/'
         ]);

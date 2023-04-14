@@ -5,6 +5,7 @@ namespace Fintecture\Api\Ais;
 use Fintecture\Api\Api;
 use Fintecture\Api\ApiResponse;
 use Fintecture\Util\Header;
+use Fintecture\Util\Http;
 
 class Authorize extends Api
 {
@@ -25,7 +26,7 @@ class Authorize extends Api
         if (!$useToken) {
             $params['response_type'] = 'code';
         }
-        $params = http_build_query($params);
+        $params = Http::buildHttpQuery($params);
         $path = '/ais/v1/provider/' . $providerId . '/authorize?' . $params;
 
         if (!$useToken) {
@@ -58,7 +59,7 @@ class Authorize extends Api
             $params = [
                 'response_type' => 'code'
             ];
-            $params = http_build_query($params);
+            $params = Http::buildHttpQuery($params);
             $path .= '?' . $params;
         }
 

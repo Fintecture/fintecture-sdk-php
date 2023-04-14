@@ -4,6 +4,7 @@ namespace Fintecture\Api\Ais;
 
 use Fintecture\Api\Api;
 use Fintecture\Api\ApiResponse;
+use Fintecture\Util\Http;
 
 class AccountHolder extends Api
 {
@@ -22,7 +23,7 @@ class AccountHolder extends Api
     {
         $path = '/ais/v1/customer/' . $customerId . '/accountholders';
         if (!empty($additionalParams)) {
-            $additionalParams = http_build_query($additionalParams);
+            $additionalParams = Http::buildHttpQuery($additionalParams);
             $path .= '?' . $additionalParams;
         }
 
