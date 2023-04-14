@@ -4,6 +4,7 @@ namespace Fintecture\Api\Pis;
 
 use Fintecture\Api\Api;
 use Fintecture\Api\ApiResponse;
+use Fintecture\Util\Http;
 
 class Refund extends Api
 {
@@ -17,7 +18,7 @@ class Refund extends Api
      */
     public function generate(array $data, string $state = null): ApiResponse
     {
-        $params = http_build_query([
+        $params = Http::buildHttpQuery([
             'state' => $state
         ]);
         $path = '/pis/v2/refund';

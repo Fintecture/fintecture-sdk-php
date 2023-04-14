@@ -5,6 +5,7 @@ namespace Fintecture\Api\Pis;
 use Fintecture\Api\Api;
 use Fintecture\Api\ApiResponse;
 use Fintecture\Util\Header;
+use Fintecture\Util\Http;
 
 class RequestToPay extends Api
 {
@@ -24,7 +25,7 @@ class RequestToPay extends Api
         string $redirectUri = null,
         string $state = null
     ): ApiResponse {
-        $params = http_build_query([
+        $params = Http::buildHttpQuery([
             'redirect_uri' => $redirectUri,
             'state' => $state,
         ]);

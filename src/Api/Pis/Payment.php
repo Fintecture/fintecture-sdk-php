@@ -4,6 +4,7 @@ namespace Fintecture\Api\Pis;
 
 use Fintecture\Api\Api;
 use Fintecture\Api\ApiResponse;
+use Fintecture\Util\Http;
 
 class Payment extends Api
 {
@@ -22,7 +23,7 @@ class Payment extends Api
         if ($sessionId) {
             $path .= '/' . $sessionId;
 
-            $params = http_build_query([
+            $params = Http::buildHttpQuery([
                 'with_beneficiary' => $withBeneficiary,
                 'with_virtualbeneficiary' => $withVirtualBeneficiary,
             ]);

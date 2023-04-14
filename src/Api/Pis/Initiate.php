@@ -4,6 +4,7 @@ namespace Fintecture\Api\Pis;
 
 use Fintecture\Api\Api;
 use Fintecture\Api\ApiResponse;
+use Fintecture\Util\Http;
 
 class Initiate extends Api
 {
@@ -19,7 +20,7 @@ class Initiate extends Api
      */
     public function generate(array $data, string $providerId, string $redirectUri, string $state = null): ApiResponse
     {
-        $params = http_build_query([
+        $params = Http::buildHttpQuery([
             'redirect_uri' => $redirectUri,
             'state' => $state
         ]);

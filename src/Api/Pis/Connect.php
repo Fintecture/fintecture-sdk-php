@@ -5,6 +5,7 @@ namespace Fintecture\Api\Pis;
 use Fintecture\Api\Api;
 use Fintecture\Api\ApiResponse;
 use Fintecture\Util\Header;
+use Fintecture\Util\Http;
 
 class Connect extends Api
 {
@@ -15,6 +16,7 @@ class Connect extends Api
      * @param string $state State.
      * @param string $redirectUri Redirect URI.
      * @param string $originUri Origin URI.
+     * @param bool $withBeneficiary With beneficiary.
      * @param bool $withVirtualBeneficiary With virtual beneficiary.
      * @param array $additionalHeaders additionalHeaders.
      *     $additionalHeaders = [
@@ -31,13 +33,15 @@ class Connect extends Api
         string $state,
         string $redirectUri = null,
         string $originUri = null,
+        bool $withBeneficiary = null,
         bool $withVirtualBeneficiary = null,
         array $additionalHeaders = []
     ): ApiResponse {
-        $params = http_build_query([
+        $params = Http::buildHttpQuery([
             'state' => $state,
             'redirect_uri' => $redirectUri,
             'origin_uri' => $originUri,
+            'with_beneficiary' => $withBeneficiary,
             'with_virtualbeneficiary' => $withVirtualBeneficiary
         ]);
         $path = '/pis/v2/connect?' . $params;

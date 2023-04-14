@@ -4,6 +4,7 @@ namespace Fintecture\Api\Resources;
 
 use Fintecture\Api\Api;
 use Fintecture\Api\ApiResponse;
+use Fintecture\Util\Http;
 
 class Provider extends Api
 {
@@ -30,7 +31,7 @@ class Provider extends Api
     {
         $path = 'res/v1/providers' . ($id ? '/' . $id : '');
         if (!empty($additionalParams)) {
-            $additionalParams = http_build_query($additionalParams);
+            $additionalParams = Http::buildHttpQuery($additionalParams);
             $path .= '?' . $additionalParams;
         }
 

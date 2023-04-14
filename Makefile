@@ -4,7 +4,7 @@ init:
 
 	# Install PHP CS Fixer
 	mkdir --parents tools/php-cs-fixer
-	composer require --working-dir=tools/php-cs-fixer friendsofphp/php-cs-fixer
+	composer require --dev --working-dir=tools/php-cs-fixer friendsofphp/php-cs-fixer
 
 analyse:
 	./vendor/bin/phpstan analyse --memory-limit 2G
