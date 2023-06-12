@@ -62,8 +62,8 @@ class ApiFactory
         'initiate' => Initiate::class,
         'payment' => Payment::class,
         'refund' => Refund::class,
-        'requestToPay' => RequestToPay::class,
         'requestForPayout' => RequestForPayout::class,
+        'requestToPay' => RequestToPay::class,
         'settlement' => Settlement::class
     ];
 

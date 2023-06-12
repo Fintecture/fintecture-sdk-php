@@ -22,7 +22,7 @@ docker exec -it fintecture-sdk-php make test
 To generate the test coverage report, you can run this command:
 
 ```bash
-docker exec -it fintecture-sdk-php make test-coverage
+docker exec -it fintecture-sdk-php make test_coverage
 ```
 
 ### PHPStan (Static Analysis)

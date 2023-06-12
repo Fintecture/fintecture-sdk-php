@@ -12,7 +12,7 @@ analyse:
 test:
 	./vendor/bin/phpunit
 
-test-coverage:
+test_coverage:
 	./vendor/bin/phpunit --coverage-html=tests/report
 
 check:
