@@ -4,10 +4,20 @@ namespace Fintecture;
 
 use Fintecture\Api\ApiFactory;
 use Fintecture\Api\ApiResponse;
+use Fintecture\Api\Auth\Token;
+use Fintecture\Api\Resources\Application;
+use Fintecture\Api\Resources\Provider;
+use Fintecture\Api\Resources\TestAccount;
 use Fintecture\Util\EncryptionManager;
 use Fintecture\Util\PemManager;
 use Psr\Http\Client\ClientInterface;
 
+/**
+ * @property Application $application
+ * @property Provider $provider
+ * @property TestAccount $testAccount
+ * @property Token $token
+ */
 abstract class Client
 {
     /**
