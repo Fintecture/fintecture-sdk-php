@@ -13,7 +13,11 @@ class Endpoint
      */
     private static function getCurrentEnvironment(): string
     {
-        return Fintecture::getConfig()->getEnvironment();
+        if (Fintecture::getConfig()) {
+            return Fintecture::getConfig()->getEnvironment();
+        }
+
+        return '';
     }
 
     /**

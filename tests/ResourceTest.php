@@ -4,7 +4,7 @@ namespace Fintecture\Tests;
 
 use Fintecture\Api\ApiResponse;
 
-class ResourceTest extends BaseTest
+class ResourceTest extends Base
 {
     public function testResourceApplication(): void
     {

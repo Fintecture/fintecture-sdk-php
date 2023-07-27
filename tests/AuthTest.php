@@ -4,7 +4,7 @@ namespace Fintecture\Tests;
 
 use Fintecture\Api\ApiResponse;
 
-class AuthTest extends BaseTest
+class AuthTest extends Base
 {
     public function testAuthToken(): void
     {

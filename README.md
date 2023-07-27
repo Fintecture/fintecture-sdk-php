@@ -131,6 +131,8 @@ These methods follow our [API structure](https://docs.fintecture.com/v2).
     - get
 
 ### PIS
+- assessment
+    - get
 - connect
     - generate
 - initiate
@@ -186,7 +188,7 @@ make test-coverage
 
 ### PHPStan (Static Analysis)
 
-There are 9 levels (0-8). Level is set in `phpstan.neon`.
+There are 10 levels (0-9). Level is set in `phpstan.neon`.
 ```bash
 make analyse
 ```

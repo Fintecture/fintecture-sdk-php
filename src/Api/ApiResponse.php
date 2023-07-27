@@ -2,6 +2,7 @@
 
 namespace Fintecture\Api;
 
+use Fintecture\Util\FintectureException;
 use Psr\Http\Message\ResponseInterface;
 
 class ApiResponse
@@ -15,8 +16,7 @@ class ApiResponse
     /** @var string $errorMsg */
     public $errorMsg;
 
-    /** @param ?object $result */
-    public function __construct(ResponseInterface $response, $result)
+    public function __construct(ResponseInterface $response, ?object $result)
     {
         $this->result = $result;
         $this->checkResult($response);
@@ -24,10 +24,8 @@ class ApiResponse
 
     /**
      * Check content and status of response.
-     *
-      * @param object $response Response object
      */
-    private function checkResult($response): void
+    private function checkResult(ResponseInterface $response): void
     {
         // Check status and errors
         $statusCode = $response->getStatusCode();
@@ -66,13 +64,15 @@ class ApiResponse
      *
      * @param string $name Name of the result property.
      *
+     * @return mixed
+     *
      * @throws \Exception if property is not defined
      */
     public function __get(string $name)
     {
-        if (property_exists($this->result, $name)) {
+        if ($this->result && property_exists($this->result, $name)) {
             return $this->result->$name;
         }
-        throw new \Exception('Undefined API property: ' . static::class . '::$' . $name);
+        throw new FintectureException('Undefined API property: ' . static::class . '::$' . $name);
     }
 }

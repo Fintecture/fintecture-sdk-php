@@ -7,6 +7,7 @@ composer.lock
 # PHPUnit test coverage report
 tests/report/
 .phpunit.result.cache
+.phpunit.cache/
 
 # PHP CS Fixer
 tools/php-cs-fixer/

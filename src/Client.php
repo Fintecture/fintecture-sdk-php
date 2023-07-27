@@ -8,7 +8,9 @@ use Fintecture\Api\Auth\Token;
 use Fintecture\Api\Resources\Application;
 use Fintecture\Api\Resources\Provider;
 use Fintecture\Api\Resources\TestAccount;
+use Fintecture\Config\Config;
 use Fintecture\Util\EncryptionManager;
+use Fintecture\Util\FintectureException;
 use Fintecture\Util\PemManager;
 use Psr\Http\Client\ClientInterface;
 
@@ -41,6 +43,11 @@ abstract class Client
     private $pemManager;
 
     /**
+    * @var Config
+    */
+    private $config;
+
+    /**
      * @param array $config The config of the user app to create the main client.
      * @param ?ClientInterface $httpClient Client to do HTTP requests, if not set, auto discovery will be used to find a HTTP client.
      */
@@ -51,11 +58,11 @@ abstract class Client
 
         // Configuration
         Fintecture::setCurrentClient($this->identifier);
-        Fintecture::setConfig($config);
+        $this->config = Fintecture::setConfig($config);
 
         // Handle encryption for handling of PEM keys
-        if (Fintecture::getConfig()->getEncryptionDir()) {
-            $this->encryptionManager = new EncryptionManager(Fintecture::getConfig()->getEncryptionDir());
+        if ($this->config->getEncryptionDir()) {
+            $this->encryptionManager = new EncryptionManager($this->config->getEncryptionDir());
             $this->encryptionManager->initEncryptionKey();
         }
         $this->pemManager = new PemManager($this->encryptionManager);
@@ -76,22 +83,26 @@ abstract class Client
     private function initPrivateKey(): void
     {
         // Private Key handling / config updates
-        $privateKey = $this->pemManager->readPrivateKey(Fintecture::getConfig()->getPrivateKey());
+        $privateKey = $this->pemManager->readPrivateKey($this->config->getPrivateKey());
+        if (!$privateKey) {
+            throw new FintectureException('Cannot get private key.');
+        }
+
         $pemResults = $this->pemManager->formatPrivateKey($privateKey);
 
         $finalPrivateKey = $pemResults['encrypted'] ? $privateKey : $pemResults['privateKey'];
         if ($this->pemManager->isPemString($finalPrivateKey)) {
-            Fintecture::getConfig()->setFinalPrivateKey($finalPrivateKey);
+            $this->config->setFinalPrivateKey($finalPrivateKey);
         } else {
-            throw new \Exception('The private key is not well formatted. Please verify it.');
+            throw new FintectureException('The private key is not well formatted. Please verify it.');
         }
 
-        if (Fintecture::getConfig()->getEncryptionDir()) {
+        if ($this->config->getEncryptionDir()) {
             // Store encrypted private key for developers
             if ($pemResults['encrypted']) {
-                Fintecture::getConfig()->setEncryptedPrivateKey($pemResults['privateKey']); // newly encrypted key (to save)
+                $this->config->setEncryptedPrivateKey($pemResults['privateKey']); // newly encrypted key (to save)
             } else {
-                Fintecture::getConfig()->setEncryptedPrivateKey($privateKey); // original key
+                $this->config->setEncryptedPrivateKey($privateKey); // original key
             }
         }
     }
@@ -104,7 +115,7 @@ abstract class Client
     public function getEncryptedPrivateKey(): ?string
     {
         Fintecture::setCurrentClient($this->identifier);
-        return Fintecture::getConfig()->getEncryptedPrivateKey();
+        return $this->config->getEncryptedPrivateKey();
     }
 
     /**
@@ -115,7 +126,7 @@ abstract class Client
     public function getFinalPrivateKey(): ?string
     {
         Fintecture::setCurrentClient($this->identifier);
-        return Fintecture::getConfig()->getFinalPrivateKey();
+        return $this->config->getFinalPrivateKey();
     }
 
     /**
@@ -142,7 +153,7 @@ abstract class Client
             header('Location: ' . $url);
             exit;
         } else {
-            throw new \Exception('Invalid target url. Please verify the format.');
+            throw new FintectureException('Invalid target url. Please verify the format.');
         }
     }
 
@@ -150,6 +161,8 @@ abstract class Client
      * Override __get function to call the requested API class.
      *
      * @param string $name Name of the API class.
+     *
+     * @return mixed
      */
     public function __get(string $name)
     {
@@ -159,14 +172,14 @@ abstract class Client
             try {
                 $this->apiFactory = new ApiFactory($this->identifier);
             } catch (\Exception $e) {
-                \trigger_error($e->getMessage(), E_USER_ERROR);
+                throw new FintectureException($e->getMessage());
             }
         }
 
         try {
             return $this->apiFactory->__get($name);
         } catch (\Exception $e) {
-            \trigger_error($e->getMessage(), E_USER_ERROR);
+            throw new FintectureException($e->getMessage());
         }
     }
 }

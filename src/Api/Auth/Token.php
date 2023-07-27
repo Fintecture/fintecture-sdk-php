@@ -5,6 +5,7 @@ namespace Fintecture\Api\Auth;
 use Fintecture\Api\Api;
 use Fintecture\Api\ApiResponse;
 use Fintecture\Fintecture;
+use Fintecture\Util\FintectureException;
 
 class Token extends Api
 {
@@ -17,7 +18,10 @@ class Token extends Api
      */
     public function generate(string $clientIdentifier = 'pis', string $code = null): ApiResponse
     {
-        $appId = Fintecture::getConfig()->getAppId();
+        if (!$config = Fintecture::getConfig()) {
+            throw new FintectureException('Token needs a configured client');
+        }
+        $appId = $config->getAppId();
 
         $scope = $clientIdentifier === 'ais' ? 'AIS' : 'PIS';
         $grantType = $clientIdentifier === 'ais' ? 'authorization_code' : 'client_credentials';

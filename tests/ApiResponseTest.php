@@ -3,9 +3,10 @@
 namespace Fintecture\Tests;
 
 use Fintecture\Api\ApiResponse;
+use Fintecture\Util\FintectureException;
 use Psr\Http\Message\ResponseInterface;
 
-class ApiResponseTest extends BaseTest
+class ApiResponseTest extends Base
 {
     public function testGetProperty(): void
     {
@@ -20,7 +21,7 @@ class ApiResponseTest extends BaseTest
         /** @var ResponseInterface $response */
         $response = $this->createMock('Psr\Http\Message\ResponseInterface');
         $apiResponse = new ApiResponse($response, (object) ['key' => true]);
-        $this->expectException(\Exception::class);
+        $this->expectException(FintectureException::class);
         $apiResponse->fake; /** @phpstan-ignore-line */
     }
 }

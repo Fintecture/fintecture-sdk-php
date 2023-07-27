@@ -4,7 +4,7 @@ namespace Fintecture\Tests;
 
 use Fintecture\Util\Http;
 
-class HttpTest extends BaseTest
+class HttpTest extends Base
 {
     public function testBuildHttpQuery(): void
     {

@@ -13,6 +13,6 @@ abstract class Api
 
     public function __construct()
     {
-        $this->apiWrapper = Fintecture::getApiWrapper();
+        $this->apiWrapper = Fintecture::getApiWrapper() ?: Fintecture::setApiWrapper();
     }
 }

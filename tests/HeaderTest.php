@@ -8,7 +8,7 @@ use Fintecture\Util\Header;
 use Fintecture\Util\Http;
 use Psr\Http\Message\ResponseInterface;
 
-class HeaderTest extends BaseTest
+class HeaderTest extends Base
 {
     public function setUp(): void
     {

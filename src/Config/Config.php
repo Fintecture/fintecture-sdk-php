@@ -3,6 +3,7 @@
 namespace Fintecture\Config;
 
 use Fintecture\Fintecture;
+use Fintecture\Util\FintectureException;
 
 class Config
 {
@@ -221,7 +222,7 @@ class Config
         }
 
         if (!empty($errors)) {
-            throw new \Exception('Invalid configuration, Please verify it: ' . implode(' ', $errors));
+            throw new FintectureException('Invalid configuration, Please verify it: ' . implode(' ', $errors));
         }
         return true;
     }

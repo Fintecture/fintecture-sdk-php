@@ -3,6 +3,7 @@
 $finder = PhpCsFixer\Finder::create()
     ->in(__DIR__)
     ->exclude('vendor')
+    ->exclude('test-coverage')
     ->exclude('tools')
 ;
 

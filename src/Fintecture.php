@@ -5,6 +5,7 @@ namespace Fintecture;
 use Fintecture\Api\ApiResponse;
 use Fintecture\Api\ApiWrapper;
 use Fintecture\Config\Config;
+use Fintecture\Util\FintectureException;
 use Http\Discovery\Exception\NotFoundException;
 use Http\Discovery\Psr17FactoryDiscovery;
 use Http\Discovery\Psr18ClientDiscovery;
@@ -15,7 +16,7 @@ use Psr\Http\Message\StreamFactoryInterface;
 final class Fintecture
 {
     // SDK Version
-    public const VERSION = '2.3.7';
+    public const VERSION = '2.4.0';
 
     // API URLs
 
@@ -29,9 +30,14 @@ final class Fintecture
     public const AVAILABLE_ENVS = ['test', 'sandbox', 'production'];
 
     /**
-     * @var string
+     * @var ?string
      */
     public static $currentClient;
+
+    /**
+     * @var ApiWrapper
+     */
+    private static $apiWrapper;
 
     /**
      * @var array<ClientInterface>
@@ -49,11 +55,6 @@ final class Fintecture
     private static $streamFactories;
 
     /**
-     * @var ApiWrapper
-     */
-    private static $apiWrapper;
-
-    /**
      * @var array<Config>
      */
     public static $configs;
@@ -65,8 +66,6 @@ final class Fintecture
 
     /**
      * Get current client identifier.
-     *
-     * @return string Current client identifier
      */
     public static function getCurrentClient(): ?string
     {
@@ -75,65 +74,52 @@ final class Fintecture
 
     /**
      * Set current client identifier.
-     *
-     * @param string $currentClient Current client identifier
      */
-    public static function setCurrentClient(string $currentClient): void
+    public static function setCurrentClient(?string $currentClient): void
     {
         self::$currentClient = $currentClient;
     }
 
     /**
      * Get default HTTP client.
-     *
-     * @return ClientInterface Default HTTP client
      */
-    public static function getDefaultHttpClient(): ?ClientInterface
+    public static function getDefaultHttpClient(): ClientInterface
     {
         try {
             return Psr18ClientDiscovery::find();
         } catch (NotFoundException $e) {
-            \trigger_error($e->getMessage(), E_USER_WARNING);
-            return null;
+            throw new FintectureException('No HTTP Client found: ' . $e->getMessage());
         }
     }
 
     /**
      * Get default Request Factory.
-     *
-     * @return RequestFactoryInterface Default Request Factory
      */
-    public static function getDefaultRequestFactory(): ?RequestFactoryInterface
+    public static function getDefaultRequestFactory(): RequestFactoryInterface
     {
         try {
             return Psr17FactoryDiscovery::findRequestFactory();
         } catch (NotFoundException $e) {
-            \trigger_error($e->getMessage(), E_USER_WARNING);
-            return null;
+            throw new FintectureException('No HTTP Factory found: ' . $e->getMessage());
         }
     }
 
     /**
      * Get default Request Factory.
-     *
-     * @return StreamFactoryInterface Default Stream Factory
      */
-    public static function getDefaultStreamFactory(): ?StreamFactoryInterface
+    public static function getDefaultStreamFactory(): StreamFactoryInterface
     {
         try {
             return Psr17FactoryDiscovery::findStreamFactory();
         } catch (NotFoundException $e) {
-            \trigger_error($e->getMessage(), E_USER_WARNING);
-            return null;
+            throw new FintectureException('No Stream Factory found: ' . $e->getMessage());
         }
     }
 
     /**
      * Get current HTTP client.
-     *
-     * @return ClientInterface Current HTTP client
      */
-    public static function getHttpClient(): ?ClientInterface
+    public static function getHttpClient(): ClientInterface
     {
         if (!empty(self::getCurrentClient()) && isset(self::$httpClients[self::getCurrentClient()])) {
             return self::$httpClients[self::getCurrentClient()];
@@ -143,8 +129,6 @@ final class Fintecture
 
     /**
      * Set current HTTP client.
-     *
-     * @param ClientInterface $httpClient Current HTTP client
      */
     public static function setHttpClient(?ClientInterface $httpClient): void
     {
@@ -156,10 +140,8 @@ final class Fintecture
 
     /**
      * Get current Request Factory.
-     *
-     * @return RequestFactoryInterface Current Request Factory
      */
-    public static function getRequestFactory(): ?RequestFactoryInterface
+    public static function getRequestFactory(): RequestFactoryInterface
     {
         if (!empty(self::getCurrentClient()) && isset(self::$requestFactories[self::getCurrentClient()])) {
             return self::$requestFactories[self::getCurrentClient()];
@@ -180,10 +162,8 @@ final class Fintecture
 
     /**
      * Get current Stream Factory.
-     *
-     * @return StreamFactoryInterface Current Stream Factory
      */
-    public static function getStreamFactory(): ?StreamFactoryInterface
+    public static function getStreamFactory(): StreamFactoryInterface
     {
         if (!empty(self::getCurrentClient()) && isset(self::$streamFactories[self::getCurrentClient()])) {
             return self::$streamFactories[self::getCurrentClient()];
@@ -204,8 +184,6 @@ final class Fintecture
 
     /**
      * Get Api Wrapper.
-     *
-     * @return ApiWrapper Api Wrapper
      */
     public static function getApiWrapper(): ?ApiWrapper
     {
@@ -223,8 +201,6 @@ final class Fintecture
 
     /**
      * Get current Config.
-     *
-     * @return Config current Config
      */
     public static function getConfig(): ?Config
     {
@@ -239,19 +215,22 @@ final class Fintecture
      *
      * @param array $config current Config
      */
-    public static function setConfig(array $config): void
+    public static function setConfig(array $config): Config
     {
         if (!self::$configs) {
             self::$configs = [];
         }
-        self::$configs[self::getCurrentClient()] = new Config($config);
-        self::$configs[self::getCurrentClient()]->validate();
+
+        $config = new Config($config);
+        $config->validate();
+
+        self::$configs[self::getCurrentClient()] = $config;
+
+        return $config;
     }
 
     /**
      * Get current Access Token.
-     *
-     * @return ApiResponse current Access Token
      */
     public static function getAccessToken(): ?ApiResponse
     {
@@ -263,8 +242,6 @@ final class Fintecture
 
     /**
      * Set current Access Token.
-     *
-     * @param ApiResponse $accessToken current Access Token
      */
     public static function setAccessToken(ApiResponse $accessToken): void
     {

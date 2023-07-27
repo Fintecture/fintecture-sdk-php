@@ -3,11 +3,11 @@
 namespace Fintecture\Tests;
 
 use Fintecture\Fintecture;
-use Http\Client\HttpClient;
+use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\StreamFactoryInterface;
 
-class FintectureTest extends BaseTest
+class FintectureTest extends Base
 {
     public function testGetConfig(): void
     {
@@ -29,7 +29,7 @@ class FintectureTest extends BaseTest
     {
         $currentClient = Fintecture::getCurrentClient();
         Fintecture::setCurrentClient('badclient');
-        $this->assertTrue(Fintecture::getHttpClient() instanceof HttpClient);
+        $this->assertTrue(Fintecture::getHttpClient() instanceof ClientInterface);
         Fintecture::setCurrentClient($currentClient);
     }
 

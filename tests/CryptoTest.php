@@ -3,9 +3,9 @@
 namespace Fintecture\Tests;
 
 use Fintecture\Util\Crypto;
-use PHPUnit\Framework\TestCase as PHPUnitTestCase;
+use PHPUnit\Framework\TestCase;
 
-class CryptoTest extends PHPUnitTestCase
+class CryptoTest extends TestCase
 {
     public function testEncodeToJson(): void
     {

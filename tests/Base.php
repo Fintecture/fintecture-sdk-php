@@ -7,14 +7,14 @@ use Fintecture\Api\ApiResponse;
 use Fintecture\Api\ApiWrapper;
 use Fintecture\Fintecture;
 use Fintecture\PisClient;
-use Http\Discovery\HttpClientDiscovery;
+use Http\Discovery\Psr18ClientDiscovery;
 use Http\Discovery\Strategy\MockClientStrategy;
 use Http\Mock\Client as MockClient;
 use org\bovigo\vfs\vfsStream;
-use PHPUnit\Framework\TestCase as PHPUnitTestCase;
+use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 
-abstract class BaseTest extends PHPUnitTestCase
+abstract class Base extends TestCase
 {
     /** @var \org\bovigo\vfs\vfsStreamDirectory $root */
     public $root;
@@ -70,14 +70,14 @@ abstract class BaseTest extends PHPUnitTestCase
         $this->dataPath = __DIR__ . '/data/';
 
         $this->privateKeyPath = $this->dataPath . 'private_key.pem';
-        $this->privateKey = file_get_contents($this->privateKeyPath);
-        $this->encryptedPrivateKey = file_get_contents($this->dataPath . 'encrypted_private_key.txt');
+        $this->privateKey = file_get_contents($this->privateKeyPath) ?: '';
+        $this->encryptedPrivateKey = file_get_contents($this->dataPath . 'encrypted_private_key.txt') ?: '';
 
         /** @var ResponseInterface $response */
         $response = $this->createMock('Psr\Http\Message\ResponseInterface');
         $newToken = new ApiResponse($response, (object) ['access_token' => 'token']);
 
-        HttpClientDiscovery::prependStrategy(MockClientStrategy::class);
+        Psr18ClientDiscovery::prependStrategy(MockClientStrategy::class);
 
         $this->aisClient = new AisClient([
             'appId' => 'test',
@@ -98,6 +98,8 @@ abstract class BaseTest extends PHPUnitTestCase
         ], new MockClient());
         $this->pisClient->setAccessToken($newToken);
 
-        $this->apiWrapper = Fintecture::getApiWrapper();
+        if ($apiWrapper = Fintecture::getApiWrapper()) {
+            $this->apiWrapper = $apiWrapper;
+        }
     }
 }
