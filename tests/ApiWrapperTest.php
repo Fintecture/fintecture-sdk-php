@@ -2,7 +2,7 @@
 
 namespace Fintecture\Tests;
 
-class ApiWrapperTest extends BaseTest
+class ApiWrapperTest extends Base
 {
     public function testGet(): void
     {

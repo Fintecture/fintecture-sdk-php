@@ -1,13 +1,11 @@
 parameters:
     phpVersion: 70200
-    level: 6
+    level: 8
     paths:
         - .
     excludePaths:
         - examples
         - tools
         - vendor
-    ignoreErrors:
-        - '#Method Fintecture\\Api\\ApiResponse::__get\(\) has no return type specified.#'
-        - '#Method Fintecture\\Client::__get\(\) has no return type specified.#'
+        - tests
     checkMissingIterableValueType: false

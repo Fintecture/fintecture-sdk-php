@@ -9,6 +9,7 @@ use Fintecture\Api\Ais\Connect as AisConnect;
 use Fintecture\Api\Ais\Customer;
 use Fintecture\Api\Ais\Transaction;
 use Fintecture\Api\Auth\Token;
+use Fintecture\Api\Pis\Assessment;
 use Fintecture\Api\Pis\Connect as PisConnect;
 use Fintecture\Api\Pis\Initiate;
 use Fintecture\Api\Pis\Payment;
@@ -19,6 +20,7 @@ use Fintecture\Api\Pis\Settlement;
 use Fintecture\Api\Resources\Application;
 use Fintecture\Api\Resources\Provider;
 use Fintecture\Api\Resources\TestAccount;
+use Fintecture\Util\FintectureException;
 
 class ApiFactory
 {
@@ -58,6 +60,7 @@ class ApiFactory
      * @var array<string, string>
      */
     private $pisClassMap = [
+        'assessment' => Assessment::class,
         'connect' => PisConnect::class,
         'initiate' => Initiate::class,
         'payment' => Payment::class,
@@ -92,7 +95,7 @@ class ApiFactory
             }
             return $this->apis[$name];
         }
-        throw new \Exception('Undefined API class: ' . $name);
+        throw new FintectureException('Undefined API class: ' . $name);
     }
 
     /**

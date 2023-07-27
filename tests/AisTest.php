@@ -4,7 +4,7 @@ namespace Fintecture\Tests;
 
 use Fintecture\Api\ApiResponse;
 
-class AisTest extends BaseTest
+class AisTest extends Base
 {
     public function testAisAccount(): void
     {

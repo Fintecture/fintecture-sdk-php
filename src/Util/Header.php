@@ -27,12 +27,19 @@ class Header
         int $authMethod = 1,
         array $customCredentials = null
     ): array {
-        $appId = isset($customCredentials['appId']) ?
-            $customCredentials['appId'] : Fintecture::getConfig()->getAppId();
-        $appSecret = isset($customCredentials['appSecret']) ?
-            $customCredentials['appSecret'] : Fintecture::getConfig()->getAppSecret();
-        $privateKey = isset($customCredentials['privateKey']) ?
-            $customCredentials['privateKey'] : Fintecture::getConfig()->getFinalPrivateKey();
+        if (isset($customCredentials['appId']) && isset($customCredentials['appSecret']) && isset($customCredentials['privateKey'])) {
+            $appId = $customCredentials['appId'];
+            $appSecret = $customCredentials['appSecret'];
+            $privateKey = $customCredentials['privateKey'];
+        } else {
+            $config = Fintecture::getConfig();
+            if (!$config) {
+                throw new FintectureException('Header needs a configured client');
+            }
+            $appId = $config->getAppId();
+            $appSecret = $config->getAppSecret();
+            $privateKey = $config->getFinalPrivateKey();
+        }
 
         $date = date('r');
         $requestId = Crypto::uuid4();
@@ -56,12 +63,16 @@ class Header
         ]);
 
         // Auth methods
-        if ($authMethod === 1) {
+        if ($authMethod === 1 || $authMethod === 4) {
             $token = Fintecture::getAccessToken();
             if ($token instanceof ApiResponse) {
                 $headers['Authorization'] = 'Bearer ' . $token->access_token; /** @phpstan-ignore-line */
             } else {
-                throw new \Exception('The access token is not set.');
+                throw new FintectureException('The access token is not set.');
+            }
+
+            if ($authMethod === 4) {
+                $headers['app_id'] = $appId;
             }
         } elseif ($authMethod === 2) {
             $headers['Authorization'] = 'Basic ' . base64_encode($appId . ':' . $appSecret);
@@ -104,7 +115,7 @@ class Header
         }
         $signingString .= 'x-request-id: ' . $data['requestId'];
         if (!openssl_sign($signingString, $signature, $data['privateKey'], OPENSSL_ALGO_SHA256)) {
-            throw new \Exception('Signature can\'t be generated.');
+            throw new FintectureException('Signature can\'t be generated.');
         }
         return self::generateFullSignature($data, $signature);
     }

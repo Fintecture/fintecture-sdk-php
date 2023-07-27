@@ -4,8 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.4.0]
+- Add 'assessment' endpoint.
+- Bump PHPStan level to 8.
+- Replace trigger_error calls with exceptions.
+
 ## [2.3.7]
-- Droperly document methods of API classes to enable autocompletion with external tools.
+- Properly document methods of API classes to enable autocompletion with external tools.
 
 ## [2.3.6]
 - Convert booleans in strings instead of integers in query strings.

@@ -5,14 +5,15 @@ namespace Fintecture\Tests;
 use Fintecture\Api\ApiResponse;
 use Fintecture\Fintecture;
 use Fintecture\PisClient;
+use Fintecture\Util\FintectureException;
 use Http\Mock\Client as MockClient;
 use Psr\Http\Message\ResponseInterface;
 
-class ClientTest extends BaseTest
+class ClientTest extends Base
 {
     public function testNotWellFormattedPrivateKey(): void
     {
-        $this->expectException(\Exception::class);
+        $this->expectException(FintectureException::class);
         $pisClient = new PisClient([
             'appId' => 'test',
             'appSecret' => 'test',
@@ -36,13 +37,13 @@ class ClientTest extends BaseTest
 
     public function testInvalidGet(): void
     {
-        $this->expectError();
+        $this->expectException(FintectureException::class);
         $this->aisClient->fake; /** @phpstan-ignore-line */
     }
 
     public function testInvalidRedirect(): void
     {
-        $this->expectException(\Exception::class);
+        $this->expectException(FintectureException::class);
         $this->aisClient->redirect('badurl');
     }
 

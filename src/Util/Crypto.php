@@ -10,9 +10,9 @@ class Crypto
      * Returns a json encoded string.
      *
      * @param array $body array to encode
-     * @return string encoded string
+     * @return string|false encoded string
      */
-    public static function encodeToJson(array $body): string
+    public static function encodeToJson(array $body)
     {
         return json_encode($body, self::JSON_OPTIONS);
     }

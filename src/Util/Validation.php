@@ -63,11 +63,14 @@ class Validation
     public static function validSignature($body, string $digest, string $signature): bool
     {
         if (!Fintecture::getConfig()) {
-            throw new \Exception('Fintecture Client not instantiated.');
+            throw new FintectureException('Fintecture Client not instantiated.');
         }
 
         $privateKey = Fintecture::getConfig()->getFinalPrivateKey();
         $privateKey = openssl_pkey_get_private($privateKey);
+        if (!$privateKey) {
+            throw new FintectureException('Cannot get private key.');
+        }
 
         $digestBody = 'SHA-256=' . Crypto::encodeToBase64($body, true);
         $digestHeader = stripslashes($digest);

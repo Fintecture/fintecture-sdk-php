@@ -3,7 +3,7 @@
 Create and run the Docker instance:
 
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 ### Initialize project for development
 

@@ -17,14 +17,14 @@ class PemManager
      *
      * @param string $privateKey filename or content
      *
-     * @return string private key
+     * @return string|false private key
      */
-    public function readPrivateKey(string $privateKey): string
+    public function readPrivateKey(string $privateKey)
     {
         if ($this->isPemFile($privateKey)) {
             $privateKey = file_get_contents($privateKey);
         }
-        return trim($privateKey);
+        return $privateKey ? trim($privateKey) : false;
     }
 
     /**
@@ -39,7 +39,7 @@ class PemManager
      */
     public function formatPrivateKey(string $privateKey): array
     {
-        $privateKey = preg_replace("/\n\r/m", "\n", $privateKey);
+        $privateKey = (string) preg_replace("/\n\r/m", "\n", $privateKey);
         if (!$this->encryptionManager) {
             return ['privateKey' => $privateKey, 'encrypted' => false];
         }

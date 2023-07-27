@@ -5,6 +5,7 @@ namespace Fintecture\Api;
 use Fintecture\Config\Endpoint;
 use Fintecture\Fintecture;
 use Fintecture\Util\Crypto;
+use Fintecture\Util\FintectureException;
 use Fintecture\Util\Header;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
@@ -53,7 +54,7 @@ class ApiWrapper
             try {
                 $headers = Header::generate('GET', $endpoint, null, $authMethod);
             } catch (\Exception $e) {
-                \trigger_error($e->getMessage(), E_USER_ERROR);
+                throw new FintectureException($e->getMessage());
             }
         }
 
@@ -65,7 +66,7 @@ class ApiWrapper
 
             $response = $this->httpClient->sendRequest($request);
         } catch (\Exception $e) {
-            throw new \Exception("Can't handle HTTP request: " . $e->getMessage());
+            throw new FintectureException("Can't handle HTTP request: " . $e->getMessage());
         }
 
         $result = json_decode($response->getBody()->getContents());
@@ -94,7 +95,7 @@ class ApiWrapper
             try {
                 $headers = Header::generate('POST', $endpoint, $body, $authMethod);
             } catch (\Exception $e) {
-                \trigger_error($e->getMessage(), E_USER_ERROR);
+                throw new FintectureException($e->getMessage());
             }
         }
 
@@ -106,12 +107,14 @@ class ApiWrapper
 
             if (!empty($body) && is_array($body)) {
                 $body = $json ? Crypto::encodeToJson($body) : http_build_query($body);
-                $request = $this->addBodyToRequest($request, $body);
+                if ($body) {
+                    $request = $this->addBodyToRequest($request, $body);
+                }
             }
 
             $response = $this->httpClient->sendRequest($request);
         } catch (\Exception $e) {
-            throw new \Exception("Can't handle HTTP request: " . $e->getMessage());
+            throw new FintectureException("Can't handle HTTP request: " . $e->getMessage());
         }
 
         $result = json_decode($response->getBody()->getContents());
@@ -140,7 +143,7 @@ class ApiWrapper
             try {
                 $headers = Header::generate('PATCH', $endpoint, $body, $authMethod);
             } catch (\Exception $e) {
-                \trigger_error($e->getMessage(), E_USER_ERROR);
+                throw new FintectureException($e->getMessage());
             }
         }
 
@@ -152,12 +155,14 @@ class ApiWrapper
 
             if (!empty($body) && is_array($body)) {
                 $body = $json ? Crypto::encodeToJson($body) : http_build_query($body);
-                $request = $this->addBodyToRequest($request, $body);
+                if ($body) {
+                    $request = $this->addBodyToRequest($request, $body);
+                }
             }
 
             $response = $this->httpClient->sendRequest($request);
         } catch (\Exception $e) {
-            throw new \Exception("Can't handle HTTP request: " . $e->getMessage());
+            throw new FintectureException("Can't handle HTTP request: " . $e->getMessage());
         }
 
         $result = json_decode($response->getBody()->getContents());
@@ -186,7 +191,7 @@ class ApiWrapper
             try {
                 $headers = Header::generate('DELETE', $endpoint, $body, $authMethod);
             } catch (\Exception $e) {
-                \trigger_error($e->getMessage(), E_USER_ERROR);
+                throw new FintectureException($e->getMessage());
             }
         }
 
@@ -198,12 +203,14 @@ class ApiWrapper
 
             if (!empty($body) && is_array($body)) {
                 $body = $json ? Crypto::encodeToJson($body) : http_build_query($body);
-                $request = $this->addBodyToRequest($request, $body);
+                if ($body) {
+                    $request = $this->addBodyToRequest($request, $body);
+                }
             }
 
             $response = $this->httpClient->sendRequest($request);
         } catch (\Exception $e) {
-            throw new \Exception("Can't handle HTTP request: " . $e->getMessage());
+            throw new FintectureException("Can't handle HTTP request: " . $e->getMessage());
         }
 
         $result = json_decode($response->getBody()->getContents());

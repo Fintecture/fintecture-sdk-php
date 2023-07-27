@@ -3,10 +3,11 @@
 namespace Fintecture\Tests;
 
 use Fintecture\Util\EncryptionManager;
+use Fintecture\Util\FintectureException;
 use Fintecture\Util\PemManager;
 use org\bovigo\vfs\vfsStream;
 
-class EncryptionTest extends BaseTest
+class EncryptionManagerTest extends Base
 {
     /** @var EncryptionManager $encryptionManager */
     private $encryptionManager;
@@ -19,7 +20,10 @@ class EncryptionTest extends BaseTest
         parent::setUp();
 
         // Encryption Manager with encryption key
-        $encryptionKey = hex2bin(file_get_contents($this->dataPath . 'fintecture_key_.txt'));
+        /** @var string $key */
+        $key = file_get_contents($this->dataPath . 'fintecture_key_.txt');
+        /** @var string $encryptionKey */
+        $encryptionKey = hex2bin($key);
         $this->encryptionManager = new EncryptionManager(vfsStream::url('encryption-keys'));
         $this->encryptionManager->initEncryptionKey($encryptionKey);
         $this->pemManager = new PemManager($this->encryptionManager);
@@ -42,7 +46,7 @@ class EncryptionTest extends BaseTest
     public function testInvalidDirectory(): void
     {
         // Encryption Manager without encryption key and with not existing folder
-        $this->expectError();
+        $this->expectException(FintectureException::class);
         $encryptionManager = new EncryptionManager(vfsStream::url('bad-dir'));
         $encryptionManager->initEncryptionKey();
     }

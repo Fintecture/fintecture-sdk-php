@@ -3,8 +3,9 @@
 namespace Fintecture\Tests;
 
 use Fintecture\Config\Config;
+use Fintecture\Util\FintectureException;
 
-class ConfigTest extends BaseTest
+class ConfigTest extends Base
 {
     public function testValidateGoodConfig(): void
     {
@@ -20,7 +21,7 @@ class ConfigTest extends BaseTest
 
     public function testValidateBadConfig(): void
     {
-        $this->expectException(\Exception::class);
+        $this->expectException(FintectureException::class);
 
         $config = [
             'appId' => '',

@@ -42,7 +42,7 @@ class Telemetry
     public static function logMetric(string $category): bool
     {
         // Don't send a call if telemetry is disabled
-        if (Fintecture::getConfig() && !Fintecture::getConfig()->getEnabledTelemetry()) {
+        if (!Fintecture::getConfig() || !Fintecture::getConfig()->getEnabledTelemetry()) {
             return false;
         }
 

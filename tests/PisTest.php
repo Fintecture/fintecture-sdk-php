@@ -4,8 +4,14 @@ namespace Fintecture\Tests;
 
 use Fintecture\Api\ApiResponse;
 
-class PisTest extends BaseTest
+class PisTest extends Base
 {
+    public function testPisAssessment(): void
+    {
+        $assessment = $this->pisClient->assessment->get('siren', 550.60);
+        $this->assertTrue($assessment instanceof ApiResponse);
+    }
+
     public function testPisConnect(): void
     {
         $connect = $this->pisClient->connect->generate(['data'], 'state', 'redirectUri', 'originUri');
@@ -39,7 +45,7 @@ class PisTest extends BaseTest
         $this->assertTrue($payment instanceof ApiResponse);
     }
 
-    public function testRefund(): void
+    public function testPisRefund(): void
     {
         $refund = $this->pisClient->refund->generate(['data']);
         $this->assertTrue($refund instanceof ApiResponse);
@@ -48,19 +54,19 @@ class PisTest extends BaseTest
         $this->assertTrue($refundWithState instanceof ApiResponse);
     }
 
-    public function testRequestForPayout(): void
+    public function testPisRequestForPayout(): void
     {
         $requestForPayout = $this->pisClient->requestForPayout->generate(['data'], 'https://test.fr', 'state', 'fr', 'fr');
         $this->assertTrue($requestForPayout instanceof ApiResponse);
     }
 
-    public function testRequestToPay(): void
+    public function testPisRequestToPay(): void
     {
         $requestToPay = $this->pisClient->requestToPay->generate(['data'], 'fr', 'https://test.fr', 'state');
         $this->assertTrue($requestToPay instanceof ApiResponse);
     }
 
-    public function testSettlement(): void
+    public function testPisSettlement(): void
     {
         $settlement = $this->pisClient->settlement->get('settlementId', ['param' => true]);
         $this->assertTrue($settlement instanceof ApiResponse);

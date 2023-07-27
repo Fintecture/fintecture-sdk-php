@@ -16,8 +16,11 @@ class FileSystem
     public static function streamSafeGlob($directory, $filePattern)
     {
         $files = scandir($directory);
-        $found = [];
+        if (!$files) {
+            return [];
+        }
 
+        $found = [];
         foreach ($files as $filename) {
             if (in_array($filename, ['.', '..'])) {
                 continue;
