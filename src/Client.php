@@ -6,6 +6,7 @@ use Fintecture\Api\ApiFactory;
 use Fintecture\Api\ApiResponse;
 use Fintecture\Api\Auth\Token;
 use Fintecture\Api\Resources\Application;
+use Fintecture\Api\Resources\Functionality;
 use Fintecture\Api\Resources\Provider;
 use Fintecture\Api\Resources\TestAccount;
 use Fintecture\Config\Config;
@@ -16,6 +17,7 @@ use Psr\Http\Client\ClientInterface;
 
 /**
  * @property Application $application
+ * @property Functionality $functionality
  * @property Provider $provider
  * @property TestAccount $testAccount
  * @property Token $token

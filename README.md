@@ -151,6 +151,8 @@ These methods follow our [API structure](https://docs.fintecture.com/v2).
 ### Resources
 - application
     - get
+- functionality
+    - get
 - provider
     - get
 - testAccount
