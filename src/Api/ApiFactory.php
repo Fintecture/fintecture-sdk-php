@@ -18,6 +18,7 @@ use Fintecture\Api\Pis\RequestForPayout;
 use Fintecture\Api\Pis\RequestToPay;
 use Fintecture\Api\Pis\Settlement;
 use Fintecture\Api\Resources\Application;
+use Fintecture\Api\Resources\Functionality;
 use Fintecture\Api\Resources\Provider;
 use Fintecture\Api\Resources\TestAccount;
 use Fintecture\Util\FintectureException;
@@ -39,6 +40,7 @@ class ApiFactory
      */
     private $baseClassMap = [
         'application' => Application::class,
+        'functionality' => Functionality::class,
         'provider' => Provider::class,
         'testAccount' => TestAccount::class,
         'token' => Token::class

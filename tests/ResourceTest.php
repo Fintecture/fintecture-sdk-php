@@ -12,6 +12,12 @@ class ResourceTest extends Base
         $this->assertTrue($application instanceof ApiResponse);
     }
 
+    public function testResourceFunctionality(): void
+    {
+        $functionality = $this->aisClient->functionality->get('functionalityId');
+        $this->assertTrue($functionality instanceof ApiResponse);
+    }
+
     public function testAResourceProvider(): void
     {
         $provider = $this->aisClient->provider->get('id', ['param' => true]);

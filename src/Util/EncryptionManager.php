@@ -139,10 +139,10 @@ class EncryptionManager
     {
         $decodedContent = base64_decode($content);
         $iv = substr($decodedContent, 0, $this->ivLen); // cipher initialization vector
-        $hmac = substr($decodedContent, $this->ivLen, $sha2len=32);
+        $hmac = substr($decodedContent, $this->ivLen, $sha2len = 32);
         $ciphertextRaw = substr($decodedContent, $this->ivLen + $sha2len);
-        $originalPlaintext = openssl_decrypt($ciphertextRaw, self::ENCRYPTION_METHOD, $this->encryptionKey, $options=OPENSSL_RAW_DATA, $iv);
-        $calcmac = hash_hmac('sha256', $ciphertextRaw, $this->encryptionKey, $as_binary=true);
+        $originalPlaintext = openssl_decrypt($ciphertextRaw, self::ENCRYPTION_METHOD, $this->encryptionKey, $options = OPENSSL_RAW_DATA, $iv);
+        $calcmac = hash_hmac('sha256', $ciphertextRaw, $this->encryptionKey, $as_binary = true);
 
         if ($originalPlaintext) {
             return hash_equals($hmac, $calcmac) ? $originalPlaintext : false; // timing attack safe comparison

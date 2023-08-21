@@ -24,7 +24,7 @@ class Crypto
      * @param bool $hash whether hash or not the data
      * @return string encoded string, hashed or not
      */
-    public static function encodeToBase64($body, $hash=false): string
+    public static function encodeToBase64($body, $hash = false): string
     {
         if (is_array($body)) {
             $body = self::encodeToJson($body);
