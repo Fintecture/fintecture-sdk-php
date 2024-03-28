@@ -19,4 +19,4 @@ check:
 	tools/php-cs-fixer/vendor/bin/php-cs-fixer fix --dry-run --config .php-cs-fixer.dist.php --format gitlab
 
 format:
-	tools/php-cs-fixer/vendor/bin/php-cs-fixer fix --config .php-cs-fixer.dist.php
+	PHP_CS_FIXER_IGNORE_ENV=1 tools/php-cs-fixer/vendor/bin/php-cs-fixer fix --config .php-cs-fixer.dist.php
