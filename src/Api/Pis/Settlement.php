@@ -13,7 +13,7 @@ class Settlement extends Api
      *
      * @param string $settlementId Settlement Id.
      * @param array $additionalParams Additional parameters.
-     *     $params = [
+     *     $additionalParams = [
      *         'filter[date_to]' => (string) format: yyyy-mm-dd
      *         'filter[date_from]' => (string) format: yyyy-mm-dd
      *     ]

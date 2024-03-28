@@ -16,7 +16,7 @@ use Psr\Http\Message\StreamFactoryInterface;
 final class Fintecture
 {
     // SDK Version
-    public const VERSION = '2.5.0';
+    public const VERSION = '2.5.1';
 
     // API URLs
 
