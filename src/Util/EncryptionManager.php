@@ -64,7 +64,7 @@ class EncryptionManager
         if ($nbFiles === 1) {
             // If there is only one file, this is the file to use to get encryption key
             if ($fileContent = file_get_contents($files[0])) {
-                $encryptionKey = hex2bin($fileContent);
+                $encryptionKey = hex2bin(trim($fileContent));
 
                 if ($encryptionKey) {
                     $this->encryptionKey = $encryptionKey;

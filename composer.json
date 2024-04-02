@@ -1,7 +1,7 @@
 {
     "name": "fintecture/fintecture-sdk-php",
     "type": "library",
-    "version": "2.5.1",
+    "version": "2.5.2",
     "description": "PHP library for the Fintecture API.",
     "keywords": [
         "fintecture",
