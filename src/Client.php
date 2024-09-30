@@ -5,6 +5,8 @@ namespace Fintecture;
 use Fintecture\Api\ApiFactory;
 use Fintecture\Api\ApiResponse;
 use Fintecture\Api\Auth\Token;
+use Fintecture\Api\Customers\CustomerBankAccount;
+use Fintecture\Api\Customers\Customers;
 use Fintecture\Api\Resources\Application;
 use Fintecture\Api\Resources\Functionality;
 use Fintecture\Api\Resources\Provider;
@@ -17,6 +19,8 @@ use Psr\Http\Client\ClientInterface;
 
 /**
  * @property Application $application
+ * @property CustomerBankAccount $customerBankAccount
+ * @property Customers $customers
  * @property Functionality $functionality
  * @property Provider $provider
  * @property TestAccount $testAccount

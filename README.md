@@ -130,6 +130,14 @@ These methods follow our [API structure](https://docs.fintecture.com/v2).
 - transaction
     - get
 
+### Customers
+- customers
+    - get
+    - generate
+- customerBankAccount
+    - get
+    - generate
+
 ### PIS
 - assessment
     - get

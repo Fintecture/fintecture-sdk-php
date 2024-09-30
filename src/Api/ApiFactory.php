@@ -9,6 +9,8 @@ use Fintecture\Api\Ais\Connect as AisConnect;
 use Fintecture\Api\Ais\Customer;
 use Fintecture\Api\Ais\Transaction;
 use Fintecture\Api\Auth\Token;
+use Fintecture\Api\Customers\CustomerBankAccount;
+use Fintecture\Api\Customers\Customers;
 use Fintecture\Api\Pis\Assessment;
 use Fintecture\Api\Pis\Connect as PisConnect;
 use Fintecture\Api\Pis\Initiate;
@@ -40,6 +42,8 @@ class ApiFactory
      */
     private $baseClassMap = [
         'application' => Application::class,
+        'customerBankAccount' => CustomerBankAccount::class,
+        'customers' => Customers::class,
         'functionality' => Functionality::class,
         'provider' => Provider::class,
         'testAccount' => TestAccount::class,
