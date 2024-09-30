@@ -1,7 +1,7 @@
 {
     "name": "fintecture/fintecture-sdk-php",
     "type": "library",
-    "version": "2.5.2",
+    "version": "2.6.0",
     "description": "PHP library for the Fintecture API.",
     "keywords": [
         "fintecture",
@@ -32,7 +32,7 @@
     "require-dev": {
         "ext-dom": "*",
         "ext-zip": "*",
-        "phpunit/phpunit": "^8|^9|^10",
+        "phpunit/phpunit": "^8 || ^9 || ^10 || ^11",
         "phpstan/phpstan": "^1",
         "php-http/mock-client": "*",
         "guzzlehttp/psr7": "^2",
