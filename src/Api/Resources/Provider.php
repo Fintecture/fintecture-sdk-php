@@ -29,7 +29,7 @@ class Provider extends Api
      */
     public function get(string $id = null, array $additionalParams = []): ApiResponse
     {
-        $path = 'res/v1/providers' . ($id ? '/' . $id : '');
+        $path = '/res/v1/providers' . ($id ? '/' . $id : '');
         if (!empty($additionalParams)) {
             $additionalParams = Http::buildHttpQuery($additionalParams);
             $path .= '?' . $additionalParams;

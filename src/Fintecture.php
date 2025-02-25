@@ -16,14 +16,14 @@ use Psr\Http\Message\StreamFactoryInterface;
 final class Fintecture
 {
     // SDK Version
-    public const VERSION = '2.6.0';
+    public const VERSION = '2.6.1';
 
     // API URLs
 
     // Main
-    public const TEST_API_URL = 'https://api-sandbox-test.fintecture.com/';
-    public const SANDBOX_API_URL = 'https://api-sandbox.fintecture.com/';
-    public const PRODUCTION_API_URL = 'https://api.fintecture.com/';
+    public const TEST_API_URL = 'https://api.test.fintecture.com';
+    public const SANDBOX_API_URL = 'https://api-sandbox.fintecture.com';
+    public const PRODUCTION_API_URL = 'https://api.fintecture.com';
 
     // Environment
     public const DEFAULT_ENV = 'sandbox';

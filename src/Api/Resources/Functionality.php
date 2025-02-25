@@ -12,6 +12,6 @@ class Functionality extends Api
      */
     public function get(string $functionalityId): ApiResponse
     {
-        return $this->apiWrapper->get('res/v1/functionalities/' . $functionalityId, null, 4);
+        return $this->apiWrapper->get('/res/v1/functionalities/' . $functionalityId, null, 4);
     }
 }

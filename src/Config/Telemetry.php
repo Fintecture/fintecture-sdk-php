@@ -28,7 +28,7 @@ class Telemetry
         $body = self::getMetrics($action, $additionalMetrics);
 
         $apiWrapper = Fintecture::getApiWrapper() ?: Fintecture::setApiWrapper();
-        $apiResponse = $apiWrapper->post(Fintecture::PRODUCTION_API_URL . 'ext/v1/activity', $body, true, $headers);
+        $apiResponse = $apiWrapper->post(Fintecture::PRODUCTION_API_URL . '/ext/v1/activity', $body, true, $headers);
         return !$apiResponse->error; // true if no error, false if there is an error
     }
 
@@ -56,7 +56,7 @@ class Telemetry
         ];
 
         $apiWrapper = Fintecture::getApiWrapper() ?: Fintecture::setApiWrapper();
-        $apiResponse = $apiWrapper->post(Fintecture::PRODUCTION_API_URL . 'ext/v1/metric', $body, true, $headers);
+        $apiResponse = $apiWrapper->post(Fintecture::PRODUCTION_API_URL . '/ext/v1/metric', $body, true, $headers);
         return !$apiResponse->error; // true if no error, false if there is an error
     }
 
