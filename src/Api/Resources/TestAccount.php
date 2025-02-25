@@ -20,7 +20,7 @@ class TestAccount extends Api
      */
     public function get(array $additionalParams = []): ApiResponse
     {
-        $path = 'res/v1/testaccounts';
+        $path = '/res/v1/testaccounts';
         if (!empty($additionalParams)) {
             $additionalParams = Http::buildHttpQuery($additionalParams);
             $path .= '?' . $additionalParams;

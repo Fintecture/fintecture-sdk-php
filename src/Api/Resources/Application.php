@@ -19,7 +19,7 @@ class Application extends Api
      */
     public function get(array $additionalParams = []): ApiResponse
     {
-        $path = 'res/v1/applications';
+        $path = '/res/v1/applications';
         if (!empty($additionalParams)) {
             $additionalParams = Http::buildHttpQuery($additionalParams);
             $path .= '?' . $additionalParams;
