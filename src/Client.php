@@ -57,7 +57,7 @@ abstract class Client
      * @param array $config The config of the user app to create the main client.
      * @param ?ClientInterface $httpClient Client to do HTTP requests, if not set, auto discovery will be used to find a HTTP client.
      */
-    public function __construct(array $config, ClientInterface $httpClient = null)
+    public function __construct(array $config, ?ClientInterface $httpClient = null)
     {
         // Set a unique identifier for the current instance
         $this->identifier .= '-' . uniqid();

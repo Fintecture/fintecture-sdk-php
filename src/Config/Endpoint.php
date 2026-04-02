@@ -27,7 +27,7 @@ class Endpoint
      *
      * @return string Main API URL.
      */
-    public static function getApiUrl(string $environment = null): string
+    public static function getApiUrl(?string $environment = null): string
     {
         $environment = $environment ?: self::getCurrentEnvironment();
         switch ($environment) {

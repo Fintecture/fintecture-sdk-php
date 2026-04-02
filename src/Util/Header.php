@@ -25,7 +25,7 @@ class Header
         string $path,
         $body = null,
         int $authMethod = 1,
-        array $customCredentials = null
+        ?array $customCredentials = null
     ): array {
         if (isset($customCredentials['appId']) && isset($customCredentials['appSecret']) && isset($customCredentials['privateKey'])) {
             $appId = $customCredentials['appId'];

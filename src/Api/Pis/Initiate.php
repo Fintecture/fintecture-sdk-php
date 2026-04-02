@@ -18,7 +18,7 @@ class Initiate extends Api
      *
      * @return ApiResponse Generated connect.
      */
-    public function generate(array $data, string $providerId, string $redirectUri, string $state = null): ApiResponse
+    public function generate(array $data, string $providerId, string $redirectUri, ?string $state = null): ApiResponse
     {
         $params = Http::buildHttpQuery([
             'redirect_uri' => $redirectUri,

@@ -7,7 +7,7 @@ class PemManager
     /** @var ?EncryptionManager $encryptionManager */
     private $encryptionManager;
 
-    public function __construct(EncryptionManager $encryptionManager = null)
+    public function __construct(?EncryptionManager $encryptionManager = null)
     {
         $this->encryptionManager = $encryptionManager ?: null;
     }

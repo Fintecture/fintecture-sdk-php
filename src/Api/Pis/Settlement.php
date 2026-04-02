@@ -20,7 +20,7 @@ class Settlement extends Api
      *
      * @return ApiResponse Disbursements.
      */
-    public function get(string $settlementId = null, array $additionalParams = []): ApiResponse
+    public function get(?string $settlementId = null, array $additionalParams = []): ApiResponse
     {
         $path = '/pis/v2/settlements';
         if ($settlementId) {
