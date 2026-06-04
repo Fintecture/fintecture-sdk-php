@@ -14,7 +14,7 @@ class Telemetry
      *
      * @return bool Sending status.
      */
-    public static function logAction(string $action, array $additionalMetrics = null): bool
+    public static function logAction(string $action, ?array $additionalMetrics = null): bool
     {
         // Don't send a call if telemetry is disabled
         if (Fintecture::getConfig() && !Fintecture::getConfig()->getEnabledTelemetry()) {
@@ -68,7 +68,7 @@ class Telemetry
      *
      * @return array Configuration.
      */
-    private static function getMetrics(string $action, array $additionalMetrics = null): array
+    private static function getMetrics(string $action, ?array $additionalMetrics = null): array
     {
         // Construct configuration return
         $metrics = [

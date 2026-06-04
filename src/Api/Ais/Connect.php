@@ -17,7 +17,7 @@ class Connect extends Api
      *
      * @return ApiResponse Generated connect.
      */
-    public function generate(string $redirectUri, string $state, string $scope = null): ApiResponse
+    public function generate(string $redirectUri, string $state, ?string $scope = null): ApiResponse
     {
         $params = Http::buildHttpQuery([
             'redirect_uri' => $redirectUri,

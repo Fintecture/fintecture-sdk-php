@@ -22,8 +22,8 @@ class RequestToPay extends Api
     public function generate(
         array $data,
         string $xLanguage,
-        string $redirectUri = null,
-        string $state = null
+        ?string $redirectUri = null,
+        ?string $state = null
     ): ApiResponse {
         $params = Http::buildHttpQuery([
             'redirect_uri' => $redirectUri,

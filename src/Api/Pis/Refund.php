@@ -16,7 +16,7 @@ class Refund extends Api
      *
      * @return ApiResponse Generated refund.
      */
-    public function generate(array $data, string $state = null): ApiResponse
+    public function generate(array $data, ?string $state = null): ApiResponse
     {
         $params = Http::buildHttpQuery([
             'state' => $state

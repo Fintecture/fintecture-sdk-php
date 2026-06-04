@@ -17,7 +17,7 @@ class Payment extends Api
      *
      * @return ApiResponse Payments.
      */
-    public function get(string $sessionId = null, bool $withBeneficiary = null, bool $withVirtualBeneficiary = null): ApiResponse
+    public function get(?string $sessionId = null, ?bool $withBeneficiary = null, ?bool $withVirtualBeneficiary = null): ApiResponse
     {
         $path = '/pis/v2/payments';
         if ($sessionId) {

@@ -16,7 +16,7 @@ class Token extends Api
      *
      * @return ApiResponse Generated token.
      */
-    public function generate(string $clientIdentifier = 'pis', string $code = null): ApiResponse
+    public function generate(string $clientIdentifier = 'pis', ?string $code = null): ApiResponse
     {
         if (!$config = Fintecture::getConfig()) {
             throw new FintectureException('Token needs a configured client');

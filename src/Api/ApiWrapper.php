@@ -47,7 +47,7 @@ class ApiWrapper
      */
     public function get(
         string $endpoint,
-        array $headers = null,
+        ?array $headers = null,
         int $authMethod = 1
     ): ApiResponse {
         if (!$headers) {
@@ -88,7 +88,7 @@ class ApiWrapper
         string $endpoint,
         $body = [],
         bool $json = true,
-        array $headers = null,
+        ?array $headers = null,
         int $authMethod = 1
     ): ApiResponse {
         if (!$headers) {
@@ -136,7 +136,7 @@ class ApiWrapper
         string $endpoint,
         $body = null,
         bool $json = true,
-        array $headers = null,
+        ?array $headers = null,
         int $authMethod = 1
     ): ApiResponse {
         if (!$headers) {
@@ -184,7 +184,7 @@ class ApiWrapper
         string $endpoint,
         $body = null,
         bool $json = true,
-        array $headers = null,
+        ?array $headers = null,
         int $authMethod = 1
     ): ApiResponse {
         if (!$headers) {

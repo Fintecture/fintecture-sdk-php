@@ -21,7 +21,7 @@ class Customers extends Api
      *
      * @return ApiResponse
      */
-    public function get(string $customerId = null, array $additionalParams = []): ApiResponse
+    public function get(?string $customerId = null, array $additionalParams = []): ApiResponse
     {
         $path = '/v1/customers';
 

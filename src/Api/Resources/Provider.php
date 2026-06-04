@@ -27,7 +27,7 @@ class Provider extends Api
      *
      * @return ApiResponse Provider(s) infos.
      */
-    public function get(string $id = null, array $additionalParams = []): ApiResponse
+    public function get(?string $id = null, array $additionalParams = []): ApiResponse
     {
         $path = '/res/v1/providers' . ($id ? '/' . $id : '');
         if (!empty($additionalParams)) {
